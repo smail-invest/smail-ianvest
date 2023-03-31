@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 여기는 경로를 알맞게 적어주어야 한다 -->
+<mapper namespace="com.smile.invest.mail.dao.EmailDAO">
+
+    <!-- 회원가입 시 이메일 인증을 위한 랜덤번호 저장  -->
+    <update id="updateMailAuth" parameterType="EmailDTO">
+        update EMAIL_CERTIFICATION set MAIL_AUTH = 1 where MEMBER_EMAIL = #{ email } AND MAIL_KEY = #{ mailKey }
+    </update>
+
+    <insert id="insertMailKey" parameterType="EmailDTO">
+        INSERT
+        INTO EMAIL_CERTIFICATION E
+        (
+            E.MAIL_KEY
+            , MEMBER_EMAIL
+            , MEMBER_ID
+        )
+        VALUES
+        (
+            #{ mailKey }
+            , #{ userEmail }
+            , #{ userId }
+        )
+    </insert>
+
+    <!-- 이메일 인증을 안 했으면 0을 반환, 로그인 시 인증했나 안 했나 체크하기 위함  -->
+<!--    <select id="emailAuthFail" parameterType="String" resultType="int">-->
+<!--        select count(*) from ALL_MEMBERS where MEMBER_ID =#{ userId } and MAIL_AUTH=1-->
+<!--    </select>-->
+
+</mapper>

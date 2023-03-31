@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smile.invest.manager.dao.ProjectMapper9">
+
+    <resultMap id="ProjectResultMap" type="ProjectDTO9">
+        <id property="projectNumber" column="PROJECT_NUMBER"/>
+        <result property="projectCategoryCode" column="PROJECT_CATEGORY_CODE"/>
+        <result property="projectTitle" column="PROJECT_TITLE"/>
+        <result property="writerIntroduction" column="WRITER_INTRODUCTION"/>
+        <result property="shortIntroduction" column="SHORT_INTRODUCTION"/>
+        <result property="longIntroduction" column="LONG_INTRODUCTION"/>
+        <result property="targetMileage" column="TARGET_MILEAGE"/>
+        <result property="startDate" column="START_DATE"/>
+        <result property="endDate" column="END_DATE"/>
+        <result property="projectDeleteYn" column="PROJECT_DELETE_YN"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="ProjectResultMap" resultType="ProjectDTO9">
+        SELECT
+            PROJECT_NUMBER,
+            PROJECT_CATEGORY_CODE,
+            PROJECT_TITLE,
+            TARGET_MILEAGE,
+            START_DATE,
+            END_DATE
+        FROM
+            SI_PROJECT
+        WHERE
+            PROJECT_DELETE_YN = 'N'
+    </select>
+
+    <select id="findByNum" resultMap="ProjectResultMap" resultType="ProjectDTO9">
+        SELECT
+            PROJECT_NUMBER,
+            PROJECT_CATEGORY_CODE,
+            PROJECT_TITLE,
+            TARGET_MILEAGE,
+            START_DATE,
+            END_DATE
+        FROM
+            SI_PROJECT
+        WHERE
+            PROJECT_NUMBER = #{projectNumber}
+    </select>
+
+    <update id="deleteProject" parameterType="ProjectDTO9">
+        UPDATE SI_PROJECT
+        SET
+            PROJECT_DELETE_YN  = 'Y'
+        WHERE
+            PROJECT_NUMBER = #{projectNumber}
+    </update>
+
+
+</mapper>

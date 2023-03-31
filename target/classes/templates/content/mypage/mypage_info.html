@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <link th:href="@{/css/mypage/mypage_info.css}" rel="stylesheet" type="text/css">
+  <link th:href="@{/css/manager/menu_title.css}" rel="stylesheet" type="text/css">
+</head>
+
+<th:block layout:fragment="content">
+  <!— Begin Page Content —>
+
+  <!-- main -->
+  <div>
+    <div class="title">
+      <div class="titleText">개인정보</div>
+      <div class="profileText">
+        <span th:text="${ user.getUserId() }"></span>
+        <span>님 어서오세요.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row main_row">
+      <div class="mb-3">
+        <p class="info_head">아이디</p>
+        <p class="my_info" th:text="${ user.getUserId() }"></p>
+      </div>
+      <div class="mb-3">
+        <p class="info_head">이름</p>
+        <p class="my_info" th:text="${ user.getUserName() }"></p>
+      </div>
+      <div class="mb-3">
+        <p class="info_head">이메일</p>
+        <p class="my_info" th:text="${ user.getUserEmail() }"></p>
+      </div>
+      <div class="mb-3">
+        <p class="info_head">전화번호</p>
+        <p class="my_info" th:text="${ user.getUserPhone() }"></p>
+      </div>
+      <div class="mb-3">
+        <p class="info_head">가입일</p>
+        <p class="my_info" th:text="${ user.getUserCreateDate() }"></p>
+      </div>
+      <div class="mb-3 main_btn">
+        <button th:onclick="|location.href='@{/mypage/info/update}'|">정보변경</button>
+        <button>탈퇴하기</button>
+      </div>
+    </div>
+  </div>
+
+</th:block>
+</html>

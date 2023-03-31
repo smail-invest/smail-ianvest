@@ -1,0 +1,83 @@
+/* title */
+.title {
+    padding-bottom: 10px;
+    margin: 5px 0px 0px 30px;
+    font-size: 20px;
+    border-bottom: solid 1px;
+}
+
+/* main */
+.main {
+    margin: 80px 0px 0px 250px;
+}
+
+.main span {
+    font-size: 25px;
+}
+
+.main_text {
+    margin-right: 50px;
+    font-weight: bold;
+}
+
+/* mileage box */
+.mbox {
+    text-align: center;
+    margin: 80px 150px 10px 150px;
+    padding: 70px 0px 70px 0px;
+    border: solid 1px;
+}
+
+.mbox span {
+    font-size: 40px;
+}
+
+.mileage_text {
+    color: #F75D59;
+    font-weight: bolder;
+}
+
+/* jelly charge */
+.jelly_text {
+    margin: 100px 100px 0px 250px;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.jelly_charge {
+    text-align: center;
+}
+
+.charge_input {
+    font-size: 23px;
+    margin: 0px 350px 0px 350px;
+    padding-bottom: 20px;
+    border-bottom: solid 1px black;
+}
+
+.charge_button {
+    margin: 15px 0px 0px 0px;
+    background-color:#F75D59;
+    color: white;
+    border: 0px;
+    width: 180px;
+}
+
+/* charge button */
+.money_button {
+    margin-top: 20px;
+    margin-bottom: 300px;
+}
+
+.money_button button {
+    border: solid 1px #ffae00;
+    background-color: white;
+    color: #ffae00;
+    width: 100px;
+    height: 40px;
+}
+
+.money_button button:hover {
+    color: white;
+    background-color: #ffae00;
+}

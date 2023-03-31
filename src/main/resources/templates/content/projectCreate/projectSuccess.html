@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/no_bootstrap_layout}">
+
+<head>
+    <link th:href="@{/css/log/sign_up.css}" rel="stylesheet" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+</head>
+
+
+<th:block layout:fragment="content">
+    <div class="wrapper">
+        <div class="title">
+            <span>프로젝트 등록 완료</span>
+        </div>
+    </div>
+
+    <div th:align="center">
+        <h3>등록한 정보 확인하기</h3>
+        <input name="userId" th:value="${ project.userId }">
+        <input name="categoryCode" th:value="${ project.categoryCode }">
+        <input name="projectTitle" th:value="${ project.projectTitle }">
+        <input name="shortInfo"  th:value="${ project.shortInfo }">
+        <input name="targetMileage"  th:value="${ project.targetMileage }">
+        <input name="businessNum" th:value="${ project.businessNum }">
+        <input name="startDate" type="hidden" th:value="${ #dates.format(project.startDate, 'yyyy-MM-dd') }">
+        <input name="optionName"  th:value="${ project.itemOption.optionName }">
+        <input name="price"  th:value="${ project.itemOption.price }">
+        <input name="optionComponents"  th:value="${ project.itemOption.optionComponents }">
+        <input name="longInfo"  th:value="${ project.longInfo }">
+        <input name="expectedUse"  th:value="${ project.expectedUse }">
+        <input name="projectSchedule"  th:value="${ project.projectSchedule }">
+        <input name="writerInfo"  th:value="${ project.writerInfo }">
+        <input name="additionalPolicy"  th:value="${ project.additionalPolicy }">
+        <input name="expectedDifficulty"  th:value="${ project.expectedDifficulty }">
+        <input name="expectedDifficulty" th:value="${ project.itemInformationNotice.countryManufacture }">
+        <input name="expectedDifficulty" th:value="${ project.itemInformationNotice.countryOrigin }">
+        <input name="expectedDifficulty" th:value="${ project.itemInformationNotice.optionSize }">
+        <input name="expectedDifficulty" th:value="${ project.itemInformationNotice.materials }">
+        <input name="expectedDifficulty" th:value="${ project.itemInformationNotice.qualityGuaranteeStandard }">
+        <input name="expectedDifficulty" th:value="${ project.itemInformationNotice.customerService }">
+    </div>
+
+    <button th:onclick="|location.href='@{/}'|">홈으로 가기</button>
+</th:block>
+
+</html>

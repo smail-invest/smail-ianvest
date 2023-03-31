@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <link th:href="@{/css/board/board_detail.css}" rel="stylesheet" type="text/css">
+</head>
+
+<th:block layout:fragment="content">
+  <!— Begin Page Content —>
+
+
+  <!-- title -->
+  <div class="container">
+    <div class="row">
+      <div class="title">
+        <div class="titleText" th:text="${ detail.title }"></div>
+      </div>
+
+      <!-- table -->
+      <div class="table">
+        <table class="listArea">
+          <tbody>
+          <tr>
+            <th class="table_center">작성일</th>
+            <td th:text="${#dates.format(detail.writeDate, 'yyyy-MM-dd')}"></td>
+          </tr>
+          <tr>
+            <th class="table_center">내용</th>
+            <td style="white-space: pre-wrap" th:text="${ detail.content }"></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <th:block sec:authorize="isAnonymous()">
+      <div class="saveCloseBtn">
+        <button type="button" th:onclick="|location.href='@{/board/notice/list}'|">뒤로가기</button>
+      </div>
+    </th:block>
+
+
+    <th:block sec:authorize="hasRole('ADMIN')">
+
+      <div class="saveCloseBtn">
+        <button id="btnupdate" type="button">수정하기</button>
+        <button id="btnDelete" type="button">삭제하기</button>
+        <button type="button" th:onclick="|location.href='@{/board/notice/list}'|">뒤로가기</button>
+      </div>
+
+      <script>
+        document.getElementById("btnupdate").addEventListener('click',() => {
+          const number = '[[${number}]]';
+          location.href='/board/notice/update/'+number;
+        });
+
+        document.getElementById("btnDelete").addEventListener('click',() => {
+          const number = '[[${number}]]';
+          location.href='/board/notice/delete/'+number;
+        });
+      </script>
+    </th:block>
+
+
+
+</th:block>
+</html>

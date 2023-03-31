@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <link th:href="@{/css/mypage/mileage_charge.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/manager/menu_title.css}" rel="stylesheet" type="text/css">
+</head>
+
+<th:block layout:fragment="content">
+    <!— Begin Page Content —>
+
+
+    <!-- main -->
+    <div>
+        <div class="title">
+            <div class="titleText">마일리지 충전 페이지</div>
+            <div class="profileText">
+                <span sec:authentication="principal.userId"></span>
+                <span>님 어서오세요.</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- mileage charge box -->
+    <div class="container main_box">
+        <div class="row main_row">
+            <div class="mileage_box">
+                <button th:onclick="|location.href='@{/mypage/mileage/pay}'|">충전하기</button>
+                <span class="jelly" th:text="${ userMileage }"></span>
+                <span> 젤리 보유중</span>
+            </div>
+        </div>
+    </div>
+    <!-- Board List -->
+    <div class="outer outer-board-list">
+        <br>
+
+        <div class="table-area">
+            <table align="center" id="listArea">
+                <tr>
+                    <th width="100px">구분</th>
+                    <th width="700px">프로젝트명</th>
+                    <th width="150px">날짜</th>
+                </tr>
+
+                <tr>
+                    <td>1</td>
+                    <td><a href="mileage_chargePost1.html">멍멍수제간식에 후원하셨습니다.</a></td>
+                    <td>2022-12-14</td>
+                </tr>
+
+                <tr>
+                    <td>2</td>
+                    <td><a href="mileage_chargePost2.html">멍멍수제간식에 후원하셨습니다.</a></td>
+                    <td>2022-12-14</td>
+                </tr>
+
+                <tr>
+                    <td>3</td>
+                    <td><a href="mileage_chargePost3.html">멍멍수제간식에 후원하셨습니다.</a></td>
+                    <td>2022-12-14</td>
+                </tr>
+
+                <tr>
+                    <td>4</td>
+                    <td><a href="mileage_chargePost4.html">멍멍수제간식에 후원하셨습니다.</a></td>
+                    <td>2022-12-14</td>
+                </tr>
+
+                <tr>
+                    <td>5</td>
+                    <td><a href="mileage_chargePost5.html">멍멍수제간식에 후원하셨습니다.</a></td>
+                    <td>2022-12-14</td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+</th:block>
+</html>

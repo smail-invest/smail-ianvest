@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/no_hf_layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <link th:href="@{/css/log/login.css}" rel="stylesheet" type="text/css" />
+</head>
+
+
+<th:block layout:fragment="content">
+  <div class="container-login100">
+    <!-- logo -->
+    <div class="logo">
+      <a th:href="@{/index}">
+        <img src="/images/logo.png" width="200px" height="150px" />
+      </a>
+      <div class="wrap-login100">
+        <div class="login100-pic js-tilt" data-tilt>
+          <img src="/images/login_main_img.png" alt="IMG" />
+        </div>
+
+        <form action="/member/login" method="post" id="loginForm" class="login100-form validate-form">
+          <span class="login100-form-title"> Login </span>
+
+          <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+            <input class="input100" type="text" name="username" placeholder="Id" />
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+            </span>
+          </div>
+
+          <div class="wrap-input100 validate-input" data-validate="Password is required">
+            <input class="input100" type="password" name="password" placeholder="Password" />
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+              <i class="fa fa-lock" aria-hidden="true"></i>
+            </span>
+          </div>
+
+          <div class="container-login100-form-btn">
+            <input type="submit" value="로그인" class="login100-form-btn">
+          </div>
+
+          <div class="text-center p-t-12">
+            <span class="txt1"> Forgot </span>
+            <a class="txt2" th:href="@{/member/find_id}"> Id </a>
+            <a class="txt2" href="search_pwd.html">/ Password? </a>
+          </div>
+
+          <div class="text-center p-t-136">
+            <a class="txt2" th:href="@{/member/sign_up_form}">
+              회원가입하기
+              <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.1.min.js" ></script>
+  <script>
+    $(function (){
+       $("input[name=userId]").focus();
+
+       $("input[type=submit]").click(function (){
+          $("loginForm").submit();
+       });
+    })
+  </script>
+
+
+
+</th:block>
+
+</html>

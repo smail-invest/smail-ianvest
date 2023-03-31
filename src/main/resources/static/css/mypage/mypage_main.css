@@ -1,0 +1,37 @@
+/* main */
+.btn1 {
+    background-color: #F75D59;
+    color: white;
+    letter-spacing: 8px;
+    border: 0px;
+    width: 60%;
+    height: 150%;
+}
+
+.mainBtn {
+    margin-bottom: 100px;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.menu_button {
+    margin-top: 100px;
+}
+
+/* manager_notice */
+.managerNotice {
+    margin: 10px 300px 100px 300px;
+}
+
+.noticeTitle {
+    font-size: 25px;
+    font-weight: bold;
+    color: #686868;
+    margin-bottom: 20px;
+}
+
+.managerNoticeText {
+    border: solid 1px #F75D59;
+    border-radius: 15px;
+}

@@ -1,0 +1,102 @@
+/* title */
+.title {
+    margin: 170px 250px 10px 250px;
+}
+
+.titleText {
+    text-align: left;
+    font-size: 35px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 70px;
+    color: #686868;
+}
+
+/* nav */
+.nav_box {
+    box-shadow: 0px 5px 10px 0px rgb(243, 243, 243);
+}
+
+.nav_margin {
+    margin-left: 20px;
+
+}
+
+.nav-item {
+    padding: 10px 50px 10px 50px;
+}
+
+.nav-item a {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.check {
+    border-bottom: solid 4px #F75D59;
+}
+
+/* main_input */
+.main_input {
+    margin: 100px 0px 100px 0px;
+}
+
+.listArea {
+    margin: 0px 100px 0px 100px;
+    width: 80%;
+}
+
+.listArea tr {
+
+    height: 150px;
+    border-bottom: solid 1px rgb(203, 203, 203) ;
+
+}
+
+.listArea td {
+    margin: 0px 100px 0px 100px;
+}
+
+.listArea h6 {
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.listArea p {
+    margin: 5px 0px 5px 0px;
+}
+
+.select-button {
+    width: 100%;
+    font-size: 23px;
+    font-weight: 350;
+}
+
+input {
+    width: 100%;
+}
+
+/* next button */
+.next_btn {
+    text-align: center;
+    margin: 150px 0px 100px 0px;
+}
+
+.move_btn {
+    border: solid 1px #F75D59;
+    color: #F75D59;
+}
+
+.btn:hover {
+    color: white;
+}
+
+.move_btn:hover {
+    background-color: #F75D59;
+}
+
+
+
+
+.check_box label {
+    display: flex;
+}

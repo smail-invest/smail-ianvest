@@ -1,0 +1,68 @@
+/* header */
+.whole-container {
+    border-bottom: solid 3px rgb(184, 184, 184);
+}
+
+.head_text {
+    font-weight: bold;
+    font-size: 20px;
+    color: black;
+}
+
+.head_text:hover {
+    color: #F75D59;
+}
+
+.head_text:focus {
+    box-shadow: none;
+}
+
+.head_text:active {
+    border: 0px;
+}
+
+.btn-primary {
+    border: 0px;
+    background-color: rgb(58, 2, 171);
+    color: white;
+    width: 20%;
+    border-radius: 6px;
+    margin-right: 10px;
+}
+
+.btn-color {
+    border: solid 1px #dbdbdb;
+}
+
+.project-color {
+    border: solid 1px #F75D59;
+    color: #F75D59;
+}
+
+.nav-whole {
+    display: flex;
+    height: 150px;
+}
+
+.nav-left {
+    align-items: center;
+
+}
+
+.nav-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100px;
+
+}
+
+.header_user_name > span{
+    font-size: 13px;
+}
+
+.btn-Danger {
+    background-color: #f0c32e;
+    color: white;
+    border: 0px;
+}

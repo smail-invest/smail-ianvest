@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+  <link th:href="@{/css/mypage/mileage_pay.css}" rel="stylesheet" type="text/css">
+  <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
+</head>
+
+<th:block layout:fragment="content">
+  <!— Begin Page Content —>
+
+  <!-- main -->
+  <div class="main">
+    <span class="main_text">젤리란?</span>
+    <span>프로젝트를 후원하기 위한 결제 수단입니다.</span>
+  </div>
+
+  <!-- ㅡmileage box -->
+  <div class="mbox">
+    <span>🐾 보유중인 젤리</span>
+    <span class="mileage_text" th:text="${ userMileage }">100,000</span>
+    <span>원</span>
+  </div>
+
+  <div class="jelly_text">
+    <span>젤리 충전금</span>
+  </div>
+
+  <!-- jelly ckarge -->
+  <form method="get" id="form" onsubmit="return false;">
+    <div class="jelly_charge">
+      <div class="charge_input">
+        <span>🐾 10,000 젤리 = </span>
+        <input id="mileage" name="mileage" type="text" value="0" oninput="formatPrice(this)">
+        <span>원</span>
+        <button class="charge_button" type="button" id="charge_kakao">충전하기</button>
+      </div>
+      <div class="money_button">
+        <button value="100000" type="button" name="btnNum" id="btnNum100000" onclick="chargeMileage(document.getElementById('btnNum100000'))">10만원</button>
+        <button value="50000" type="button" name="btnNum" id="btnNum50000" onclick="chargeMileage(document.getElementById('btnNum50000'))">5만원</button>
+        <button value="30000" type="button" name="btnNum" id="btnNum30000" onclick="chargeMileage(document.getElementById('btnNum30000'))">3만원</button>
+        <button value="10000" type="button" name="btnNum" id="btnNum10000" onclick="chargeMileage(document.getElementById('btnNum10000'))">1만원</button>
+        <button value="5000" type="button" name="btnNum" id="btnNum5000" onclick="chargeMileage(document.getElementById('btnNum5000'))">5,000원</button>
+        <button value="3000" type="button" name="btnNum" id="btnNum3000" onclick="chargeMileage(document.getElementById('btnNum3000'))">3,000원</button>
+        <button value="1000" type="button" name="btnNum" id="btnNum1000" onclick="chargeMileage(document.getElementById('btnNum1000'))">1,000원</button>
+      </div>
+    </div>
+  </form>
+
+  <!-- jelly info -->
+  <div class="jelly_info">
+    <div class="util_info_use_v3">
+      <ul>
+        <li class="notice_info v8">
+          <dl>
+            <dt class="notice_title">젤리 이용안내</dt>
+            <dd class="in_noti">
+              <span class="in_txt">젤리 구매에 대해서는 부가가치세가 부과되지 않습니다.</span>
+            </dd>
+            <dd class="in_noti">
+              <span class="in_txt">젤리 구매 또는 사용 전 이용약관 동의가 필요합니다.<br><a href="#" target="_blank" onclick="openPassContractInfo(); return false;"><span class="tx_gr">전용상품권 이용약관&gt;</span></a></span>
+            </dd>
+            <dd class="in_noti">
+              <span class="in_txt">결제 상세내역은 <a href="../../HTML/user_page/mileage_charge.html"><span class="tx_gr">마이페이지 - 충전하기</span></a> 에서 확인 가능합니다.</span>
+            </dd>
+            <dd class="in_noti">
+              <span class="in_txt">
+                  충전한 젤리를 사용하여 프로젝트 펀딩, 기부를 할 수 있습니다.<br>
+              </span>
+            </dd>
+          </dl>
+        </li>
+        <li class="notice_info v9">
+          <dl>
+            <dt class="notice_title">충전 & 구매취소</dt>
+            <dd>젤리 충전시 수수료가 <span>10%</span> 발생합니다.</dd>
+            <dd>젤리에 반환과 취소시 수수료는 별로도 부과되지 않습니다.</dd>
+            <dd>보유하신 젤리는 무료로 <a href="/my/cookie/purchasedList.series"><span class="tx_gr">젤리충전&gt;충전내역</span></a>에서 직접 반환하실 수 있습니다.</dd>
+            <dd>추가로 궁금하신 사항은 문의하기를 통해 문의하시길 바랍니다.</dd>
+          </dl>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.1.min.js" ></script>
+  <script>
+
+    /* 버튼 클릭시 input에 더해주며 돈단위로 표기 */
+    let sum = 0;
+
+    function chargeMileage(button){
+
+      let $mileage = document.getElementById('mileage');
+
+      sum += parseInt(button.value);
+
+      $mileage.value = sum.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");    //사파리는 안됨 ㅠ
+
+    }
+
+    /* input에 숫자 입력시 돈 단위로 표기 */
+    const formatPrice = (target) => {
+      // 숫자만 남긴 후 포맷
+      target.value = Number(target.value
+              .replace(/[^0-9]/g, ''))
+              .toLocaleString();
+    }
+
+
+    /* 전송 전 폼 데이터 체크 */
+    const send = document.getElementById("charge_kakao");
+
+    send.addEventListener("click", function () {
+
+      const $mileage = document.getElementById("mileage");
+
+      if ($mileage.value.toString().length < 6) {
+        alert("만원이상부터 충전가능합니다^^");
+        return false;
+      } else {
+        charge();
+
+
+      }});
+
+    //카카오페이 충전
+
+    function charge() {$('#charge_kakao').click(function () {
+      // getter
+      const IMP = window.IMP;
+      IMP.init('imp12230587');
+      let money = $('#mileage').val();
+      console.log(money);
+
+      IMP.request_pay({
+        pg: 'kakaopay.TC0ONETIME',
+
+        merchant_uid: 'merchant_' + new Date().getTime(),
+
+        name: '스마일인베스트 젤리 충전',
+        amount: money,
+        buyer_email: 'iamport@siot.do',
+        buyer_name: '구매자이름',
+        buyer_tel: '010-1234-5678',
+        buyer_addr: '인천광역시 부평구',
+        buyer_postcode: '123-456'
+      }, function (rsp) {
+        console.log(rsp);
+        if (rsp.success) {
+          let msg = '결제가 완료되었습니다.';
+          msg += '고유ID : ' + rsp.imp_uid;
+          msg += '상점 거래ID : ' + rsp.merchant_uid;
+          msg += '결제 금액 : ' + rsp.paid_amount;
+          msg += '카드 승인번호 : ' + rsp.apply_num;
+          $.ajax({
+            type: "GET",
+            url: "/mypage/charge/point", //충전 금액값을 보낼 url 설정
+            data: {
+              "amount" : money
+            },
+          });
+        } else {
+          let msg = '결제에 실패하였습니다.';
+          msg += '에러내용 : ' + rsp.error_msg;
+        }
+        alert(msg);
+        document.location.href="/mypage/mileage"; //alert창 확인 후 이동할 url 설정
+      });
+    })};
+
+  </script>
+
+</th:block>
+</html>

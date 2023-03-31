@@ -1,0 +1,49 @@
+/* table */
+.outer {
+    margin: 0px 0px 500px 0px;
+}
+
+.table-area {
+    margin: 0px 250px 30px 250px;
+    padding: 10px 0px 20px 0px;
+    border-bottom: solid 1px black;
+}
+
+#listArea {
+    width: 100%;
+}
+
+.tb_head {
+    background-color: #F75D59;
+    color: white;
+    height: 50px;
+    font-size: 17px;
+}
+
+.table_center {
+    text-align: center;
+}
+
+table td {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    vertical-align: middle;
+}
+
+/* table button */
+table button {
+    background-color: #F75D59;
+    color: white;
+    width: 50px;
+    border: 0px;
+}
+
+/* table search */
+.search {
+    border: solid 1px black;
+    background-color: white;
+}
+
+.page-link {
+    color: rgb(138, 138, 138);
+}

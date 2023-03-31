@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <link th:href="@{/css/projectcreate/projectOption.css}" rel="stylesheet" type="text/css">
+</head>
+
+<th:block layout:fragment="content">
+    <!— Begin Page Content —>
+
+    <!-- title -->
+    <div class="title">
+        <div class="titleText">프로젝트 등록</div>
+    </div>
+
+    <!-- main -->
+    <div>
+
+        <!-- nav -->
+        <div class="nav_box">
+            <ul class="nav nav_margin">
+                <li class="nav-item">
+                    <a>심사 기준 안내</a>
+                </li>
+                <li class="nav-item">
+                    <a>기본 정보</a>
+                </li>
+                <li class="nav-item check">
+                    <a>패키지 구성</a>
+                </li>
+                <li class="nav-item">
+                    <a>프로젝트 계획</a>
+                </li>
+                <li class="nav-item">
+                    <a>신뢰와 안전</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- input -->
+        <form th:action="@{/project/create/projectPlan}" method="post">
+            <div class="main_input">
+                <input name="userId" type="hidden" th:value="${ project.userId }">
+                <input name="categoryCode" type="hidden" th:value="${ project.categoryCode }">
+                <input name="projectTitle" type="hidden" th:value="${ project.projectTitle }">
+                <input name="shortInfo" type="hidden" th:value="${ project.shortInfo }">
+                <input name="targetMileage" type="hidden" th:value="${ project.targetMileage }">
+                <input name="businessNum" type="hidden" th:value="${ project.businessNum }">
+                <input name="startDate" type="hidden" th:value="${ #dates.format(project.startDate, 'yyyy-MM-dd') }">
+<!--                <input name="endDate"  th:value="${ #dates.format(project.endDate, 'yyyy-MM-dd') }">-->
+
+                <div>
+                    <table class="listArea">
+                        <tbody>
+                        <tr>
+                            <td class="col-md-6">
+                                <h4>1번 패키지</h4>
+                                <p></p>
+                                <p></p>
+                            </td>
+                            <td class="col-md-6">
+                                <div class="package_option">
+                                    <input name="optionName" value="옵션명을 입력해주세요.">
+                                    <input name="price" value="옵션 가격을 입력해주세요.">
+                                    <input name="optionComponents" value="옵션 구성을 입력해주세요.">
+                                </div>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+                <div class="next_btn" style="margin: 100px 0px 0px 0px">
+                    <button th:onclick="|location.href='@{/terms/judging_criteria}'|" type="button" class="btn btn-outline-secondary" data-toggle="collapse" data-target="#demo3">심사 기준</button>
+                    <a button th:onclick="|location.href='@{/terms/fee_policy}'|" href="#" class="btn btn-outline-warning w-200">수수료 안내</a>
+                    <a button th:onclick="|location.href='@{basicInfo}'|" href="#" class="btn btn-outline-warning w-200 move_btn">이전 페이지</a>
+                    <input type="submit" value="다음페이지" class="btn btn-outline-warning w-200 move_btn" style="width: 100px">
+                </div>
+        </form>
+    </div>
+</th:block>
+</html>

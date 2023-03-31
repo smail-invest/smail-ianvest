@@ -1,0 +1,32 @@
+.main_box {
+}
+
+
+.main_row {
+    margin: 50px 200px 50px 200px;
+    padding: 100px 0px 100px 0px;
+    text-align: center;
+    border: solid 1px rgb(147, 147, 147);
+    border-radius: 10px;
+}
+
+.main_box {
+    padding: 3px;
+}
+
+.mileage_box button {
+    border: solid 1px #F75D59;
+    background-color: white;
+    color: #F75D59;
+    float: left;
+}
+
+.mileage_box span {
+    font-size: 30px;
+}
+
+.main_box .jelly {
+    font-size: 50px;
+    font-weight: bold;
+    color: #F75D59;
+}

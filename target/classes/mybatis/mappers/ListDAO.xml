@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smile.invest.allList.dao.ListDAO">
+
+
+    <resultMap id="projectResultMap" type="com.smile.invest.allList.dto.Project1DTO">
+
+        <result property="projectNumber" column="PROJECT_NUMBER"/>
+        <result property="title" column="PROJECT_TITLE"/>
+        <result property="writerIntroduction" column="WRITER_INTRODUCTION"/>
+        <result property="shortIntroduction" column="SHORT_INTRODUCTION"/>
+        <result property="longIntroduction" column="LONG_INTRODUCTION"/>
+        <result property="targetMileage" column="TARGET_MILEAGE"/>
+        <result property="startDate" column="START_DATE"/>
+        <result property="endDate" column="END_DATE"/>
+        <result property="settlementDate" column="SETTLEMENT_DATE"/>
+        <result property="expectedUse" column="EXPECTED_USE"/>
+        <result property="businessLicenseNumi" column="BUSINESS_LICENSE_NUMBER"/>
+        <result property="expectedDifficulty" column="EXPECTED_DIFFICULTY"/>
+        <result property="additionalPolicy" column="ADDITIONAL_POLICY"/>
+        <result property="projectDeleteYn" column="PROJECT_DELETE_YN"/>
+        <result property="projectSchedule" column="PROJECT_SCHEDULE"/>
+        
+        <association property="categoryCode" resultMap="projectCategoryResultMap"/>
+        
+        <collection property="permissionStatusHistoryList" resultMap="permissionStatusHistoryResultMap"/>
+        <collection property="projectFileList" resultMap="projectFileListResultMap"/>
+        <collection property="memberInfoList" resultMap="memberInfoResultMap"/>
+        <collection property="itemOption" resultMap="itemOptionResultMap"/>
+
+    </resultMap>
+
+    <resultMap id="itemOptionResultMap" type="com.smile.invest.allList.dto.ItemOption1DTO">
+
+        <result property="optionNumber" column="OPTION_NUMBER"/>
+        <result property="price" column="PRICE"/>
+        <result property="projectNumber" column="PROJECT_NUMBER"/>
+        <result property="optionName" column="OPTION_NAME"/>
+        <result property="optionComponents" column="OPTION_COMPONENTS"/>
+
+
+    </resultMap>
+
+    <resultMap id="memberInfoResultMap" type="com.smile.invest.allList.dto.MemberInfoDTO">
+
+        <result property="selfIntroductionContent" column="SELF_INTRODUCTION_CONTENT"/>
+        <result property="address" column="ADDRESS"/>
+        <result property="memberId" column="MEMBER_ID"/>
+        <result property="projectNumber" column="PROJECT_NUMBER"/>
+
+    </resultMap>
+
+
+    <resultMap id="projectFileListResultMap" type="com.smile.invest.allList.dto.ProjectFileDTO">
+
+        <result property="fileNumber" column="FILE_NUMBER"/>
+        <result property="fileType" column="FILE_TYPE"/>
+        <result property="fileLocation" column="FILE_LOCATION"/>
+        <result property="fileOriginName" column="FILE_ORIGIN_NAME"/>
+        <result property="fileChangeName" column="FILE_CHANGE_NAME"/>
+        <result property="fileCreateDate" column="FILE_CREATE_DATE"/>
+        <result property="fileDeleteYn" column="FILE_DELETE_YN"/>
+        <result property="projectNumber" column="PROJECT_NUMBER"/>
+
+
+    </resultMap>
+
+
+    <resultMap id="permissionStatusHistoryResultMap" type="com.smile.invest.allList.dto.PermissionStatusHistoryDTO">
+
+        <result property="permissionDate" column="PERMISSION_DATE"/>
+        <result property="projectStatusNumber" column="PROJECT_STATUS_NUMBER"/>
+        <result property="projectNumber" column="PROJECT_NUMBER"/>
+
+    </resultMap>
+
+
+    <resultMap id="projectCategoryResultMap" type="com.smile.invest.allList.dto.ProjectCategoryDTO">
+
+        <result property="projectCategoryCode" column="PROJECT_CATEGORY_CODE"/>
+        <result property="projectCategoryName" column="PROJECT_CATEGORY_NAME"/>
+
+    </resultMap>
+
+    <select id="selectAllProjectList" resultMap="projectResultMap">
+        SELECT
+                A.PROJECT_NUMBER
+              , C.MEMBER_ID
+              , A.PROJECT_CATEGORY_CODE
+              , B.PROJECT_CATEGORY_NAME
+              , A.PROJECT_TITLE
+              , A.WRITER_INTRODUCTION
+              , A.SHORT_INTRODUCTION
+              , A.LONG_INTRODUCTION
+              , A.TARGET_MILEAGE
+              , A.START_DATE
+              , A.END_DATE
+              , A.SETTLEMENT_DATE
+              , A.EXPECTED_USE
+              , A.BUSINESS_LICENSE_NUMBER
+              , A.EXPECTED_DIFFICULTY
+              , A.ADDITIONAL_POLICY
+              , A.PROJECT_DELETE_YN
+              , A.PROJECT_SCHEDULE
+              , D.FILE_NUMBER
+              , D.FILE_LOCATION
+              , D.FILE_ORIGIN_NAME
+              , D.FILE_CHANGE_NAME
+              , D.FILE_DELETE_YN
+              , E.PROJECT_STATUS_NUMBER
+          FROM SI_PROJECT A
+          JOIN PROJECT_CATEGORY B ON (A.PROJECT_CATEGORY_CODE = B.PROJECT_CATEGORY_CODE)
+          JOIN MEMBER_INFORMATION C ON(A.PROJECT_NUMBER = C.PROJECT_NUMBER)
+          JOIN PROJECT_FILE D ON(A.PROJECT_NUMBER = D.PROJECT_NUMBER)
+          JOIN PROJECT_PERMISSION_STATUS_HISTORY E ON(A.PROJECT_NUMBER = E.PROJECT_NUMBER)
+         WHERE E.PROJECT_STATUS_NUMBER = 'psn05'
+         AND D.FILE_CHANGE_NAME LIKE '%1%'
+         ORDER BY A.PROJECT_NUMBER
+     </select>
+
+    <select id="categoryProjectList" resultMap="projectResultMap" parameterType="String">
+        SELECT
+            A.PROJECT_NUMBER
+             , C.MEMBER_ID
+             , A.PROJECT_CATEGORY_CODE
+             , B.PROJECT_CATEGORY_NAME
+             , A.PROJECT_TITLE
+             , A.WRITER_INTRODUCTION
+             , A.SHORT_INTRODUCTION
+             , A.LONG_INTRODUCTION
+             , A.TARGET_MILEAGE
+             , A.START_DATE
+             , A.END_DATE
+             , A.SETTLEMENT_DATE
+             , A.EXPECTED_USE
+             , A.BUSINESS_LICENSE_NUMBER
+             , A.EXPECTED_DIFFICULTY
+             , A.ADDITIONAL_POLICY
+             , A.PROJECT_DELETE_YN
+             , A.PROJECT_SCHEDULE
+             , D.FILE_NUMBER
+             , D.FILE_LOCATION
+             , D.FILE_ORIGIN_NAME
+             , D.FILE_CHANGE_NAME
+             , D.FILE_DELETE_YN
+             , E.PROJECT_STATUS_NUMBER
+        FROM SI_PROJECT A
+                 JOIN PROJECT_CATEGORY B ON (A.PROJECT_CATEGORY_CODE = B.PROJECT_CATEGORY_CODE)
+                 JOIN MEMBER_INFORMATION C ON(A.PROJECT_NUMBER = C.PROJECT_NUMBER)
+                 JOIN PROJECT_FILE D ON(A.PROJECT_NUMBER = D.PROJECT_NUMBER)
+                 JOIN PROJECT_PERMISSION_STATUS_HISTORY E ON(A.PROJECT_NUMBER = E.PROJECT_NUMBER)
+        WHERE E.PROJECT_STATUS_NUMBER = 'psn05'
+          AND D.FILE_CHANGE_NAME LIKE '%1%'
+          AND A.PROJECT_CATEGORY_CODE = #{ category }
+        ORDER BY A.PROJECT_NUMBER
+    </select>
+
+    <select id="searchProjectList" resultMap="projectResultMap" parameterType="String">
+        SELECT
+            A.PROJECT_NUMBER
+             , C.MEMBER_ID
+             , A.PROJECT_CATEGORY_CODE
+             , B.PROJECT_CATEGORY_NAME
+             , A.PROJECT_TITLE
+             , A.WRITER_INTRODUCTION
+             , A.SHORT_INTRODUCTION
+             , A.LONG_INTRODUCTION
+             , A.TARGET_MILEAGE
+             , A.START_DATE
+             , A.END_DATE
+             , A.SETTLEMENT_DATE
+             , A.EXPECTED_USE
+             , A.BUSINESS_LICENSE_NUMBER
+             , A.EXPECTED_DIFFICULTY
+             , A.ADDITIONAL_POLICY
+             , A.PROJECT_DELETE_YN
+             , A.PROJECT_SCHEDULE
+             , D.FILE_NUMBER
+             , D.FILE_LOCATION
+             , D.FILE_ORIGIN_NAME
+             , D.FILE_CHANGE_NAME
+             , D.FILE_DELETE_YN
+             , E.PROJECT_STATUS_NUMBER
+        FROM SI_PROJECT A
+                 JOIN PROJECT_CATEGORY B ON (A.PROJECT_CATEGORY_CODE = B.PROJECT_CATEGORY_CODE)
+                 JOIN MEMBER_INFORMATION C ON(A.PROJECT_NUMBER = C.PROJECT_NUMBER)
+                 JOIN PROJECT_FILE D ON(A.PROJECT_NUMBER = D.PROJECT_NUMBER)
+                 JOIN PROJECT_PERMISSION_STATUS_HISTORY E ON(A.PROJECT_NUMBER = E.PROJECT_NUMBER)
+        WHERE E.PROJECT_STATUS_NUMBER = 'psn05'
+          AND D.FILE_CHANGE_NAME LIKE '%1%'
+          AND A.PROJECT_title LIKE '%' || #{ category } || '%'
+        ORDER BY A.PROJECT_NUMBER
+    </select>
+
+    <select id="listDetail" resultMap="projectResultMap">
+        SELECT
+               A.PROJECT_NUMBER
+             , C.MEMBER_ID
+             , A.PROJECT_CATEGORY_CODE
+             , B.PROJECT_CATEGORY_NAME
+             , A.PROJECT_TITLE
+             , A.WRITER_INTRODUCTION
+             , A.SHORT_INTRODUCTION
+             , A.LONG_INTRODUCTION
+             , A.TARGET_MILEAGE
+             , A.START_DATE
+             , A.END_DATE
+             , A.SETTLEMENT_DATE
+             , A.EXPECTED_USE
+             , A.BUSINESS_LICENSE_NUMBER
+             , A.EXPECTED_DIFFICULTY
+             , A.ADDITIONAL_POLICY
+             , A.PROJECT_DELETE_YN
+             , A.PROJECT_SCHEDULE
+             , D.FILE_NUMBER
+             , D.FILE_LOCATION
+             , D.FILE_ORIGIN_NAME
+             , D.FILE_CHANGE_NAME
+             , D.FILE_DELETE_YN
+             , E.PROJECT_STATUS_NUMBER
+             , F.OPTION_NAME
+             , F.OPTION_COMPONENTS
+             , F.PRICE
+          FROM SI_PROJECT A
+          JOIN PROJECT_CATEGORY B ON (A.PROJECT_CATEGORY_CODE = B.PROJECT_CATEGORY_CODE)
+          JOIN MEMBER_INFORMATION C ON(A.PROJECT_NUMBER = C.PROJECT_NUMBER)
+          JOIN PROJECT_FILE D ON(A.PROJECT_NUMBER = D.PROJECT_NUMBER)
+          JOIN PROJECT_PERMISSION_STATUS_HISTORY E ON(A.PROJECT_NUMBER = E.PROJECT_NUMBER)
+          JOIN ITEM_OPTION F ON (A.PROJECT_NUMBER = F.PROJECT_NUMBER)
+         WHERE A.PROJECT_NUMBER = #{ projectNumber }
+           AND D.FILE_CHANGE_NAME LIKE '%4%'
+           AND E.PROJECT_STATUS_NUMBER = 'psn05'
+    </select>
+
+    <update id="projectPay">
+        UPDATE
+            MILEAGE A
+        SET  A.TOTAL_MILEAGE = #{ payMileage }
+        WHERE MEMBER_ID = #{ userId }
+    </update>
+
+</mapper>

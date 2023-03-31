@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <link th:href="@{/css/projectcreate/standardinfo.css}" rel="stylesheet" type="text/css">
+</head>
+
+<th:block layout:fragment="content">
+  <!— Begin Page Content —>
+
+  <!-- main  -->
+  <div>
+    <!-- title -->
+    <div class="title">
+      <h2 class="text-center">SMILE INVEST의 프로젝트 심사 기준을 확인해주세요.</h2>
+      <h5 class="text-center">심사 기준을 준수하면 보다 빠른 프로젝트 승인이 가능합니다.</h5>
+    </div>
+
+    <div class="row main_row">
+      <div class="col-md-1"></div>
+      <div class="col-md-4 text-center main_text">
+        <h3>승인 가능 프로젝트</h3>
+        <p>기존에 없던 새로운 시도</p>
+        <p>기존에 없던 작품, 제품, 디지털 콘텐츠, 활동, 행사</p>
+        <p>창작자의 이전 제품 및 콘텐츠는 새로운 선물에 부수적으로 제공 가능</p>
+      </div>
+      <div class="col-md-2"></div>
+      <div class="col-md-4 text-center main_text">
+        <h3>반려 대상 프로젝트</h3>
+        <p>기존 상품· 콘텐츠의 판매 및 홍보</p>
+        <p>제3자에 후원금 또는 물품 기부</p>
+        <p>시중에 판매 및 유통되었던 제품·콘텐츠 제공</p>
+        <p>현금, 주식, 지분, 복권, 사이버머니, 상품권 등 수익성 상품 제공</p>
+        <p>추첨을 통해서만 제공되는 선물</p>
+        <p>무기, 군용장비, 라이터 등 위험 품목</p>
+      </div>
+      <div class="col-md-1"></div>
+    </div>
+
+    <div class="main_btn">
+      <div class="col text-center">
+        <button th:onclick="|location.href='@{/project/create/basicInfo}'|" type="button" class="btn btn-outline-danger" style="width: 250px;">확인</button>
+      </div>
+
+      <div class="col text-center">
+        <a button th:onclick="|location.href='@{/terms/judging_criteria}'|" class="btn btn-ghost-dark" style="text-decoration: underline; margin-bottom: 70px">심사기준보기</a>
+      </div>
+
+    </div>
+
+  </div>
+
+</th:block>
+</html>
+
+
+

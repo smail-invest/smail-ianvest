@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <link th:href="@{/css/projectcreate/basicinfo.css}" rel="stylesheet" type="text/css">
+</head>
+
+<th:block layout:fragment="content">
+  <!— Begin Page Content —>
+
+  <!-- title --><!--TEST123-->
+  <div class="title">
+    <div class="titleText">프로젝트 등록</div>
+  </div>
+
+  <!-- main -->
+  <div>
+
+    <!-- nav -->
+    <div class="nav_box">
+      <ul class="nav nav_margin">
+        <li class="nav-item">
+          <a>심사 기준 안내</a>
+        </li>
+        <li class="nav-item check">
+          <a>기본 정보</a>
+        </li>
+        <li class="nav-item">
+          <a>패키지 구성</a>
+        </li>
+        <li class="nav-item">
+          <a>프로젝트 계획</a>
+        </li>
+        <li class="nav-item">
+          <a>신뢰와 안전</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- input -->
+    <div class="main_input">
+      <form th:action="@{/project/create/projectOption}" method="post" id="projectCreateForm" name="projectCreateForm">
+        <table class="listArea">
+          <tbody>
+          <tr>
+            <td class="col-md-6">
+              <h4>프로젝트 카테고리</h4>
+              <p>프로젝트 성격과 가장 일치하는 카테고리를 선택해주세요.</p>
+              <p> 적합하지 않을 경우 운영자에 의해 조정될 수 있습니다.</p>
+            </td>
+            <td class="col-md-6">
+              <h5 class="choice-title">카테고리</h5>
+              <select name="categoryCode" class="select-button">
+                <option value="pcc01">용품</option>
+                <option value="pcc02">푸드</option>
+                <option value="pcc03">스타일</option>
+                <option value="pcc04">서비스</option>
+                <option value="pcc05">기부</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="col-md-6">
+              <h4>프로젝트 제목</h4>
+              <p>프로젝트의 주제, 창작물의 특징이 드러나는 멋진 제목을 붙여주세요.</p>
+            </td>
+            <td class="col-md-6">
+              <h5 class="choice-title">제목</h5>
+              <input type="text" name="projectTitle">
+            </td>
+          </tr>
+          <tr>
+            <td class="col-md-6">
+              <h4>프로젝트 요약</h4>
+              <p>후원자 분들이 프로젝트를 빠르게 이해할 수 있도록 명확하고 간략하게 소개해주세요.</p>
+            </td>
+            <td class="col-md-6">
+              <h5 class="choice-title">요약</h5>
+              <input type="text" name="shortInfo">
+            </td>
+          </tr>
+          <tr>
+            <td class="col-md-6">
+              <h4>펀딩 목표 금액</h4>
+              <p>프로젝트 완수하기 위해 필요한 금액을 설정해주세요.</p>
+            </td>
+            <td class="col-md-6">
+              <h5 class="choice-title">금액</h5>
+              <input name="targetMileage" type="number" placeholder="금액을 입력해주세요(최소 50만원 이상)" class="money-input-style" />
+              <!-- 여기에 50만원 이상 조건 안달아도 되나? -->
+            </td>
+          </tr>
+          <tr>
+            <td class="col-md-6">
+              <h4>사업자번호</h4>
+              <p>회사의 사업자번호를 입력 해주세요</p>
+            </td>
+            <td class="col-md-6">
+              <h5 class="choice-title">사업자번호</h5>
+              <input name="businessNum" type="text" class="money-input-style" />
+            </td>
+          </tr>
+          <tr>
+            <td class="col-md-6">
+              <h4>펀딩 일정</h4>
+              <p>설정한 일시가 되면 펀딩이 자동 시작됩니다.</p>
+              <p>펀딩 시작 전까지 날짜를 변경할 수 있습니다.</p>
+              <p>심사 결과에 따라 희망하는 날짜에 펀딩을 시작하지 못할 수도 있습니다.</p>
+            </td>
+            <td class="col-md-6">
+              <p>시작일</p>
+              <p>희망하는 시작일을 선택해주세요.</p>
+              <input name="startDate" type="date" id="startDate" class="date-input-box" />
+            </td>
+<!--            <td class="col-md-6">-->
+<!--              <p>종료일</p>-->
+<!--              <p>종료일은 펀딩 시작일로부터 60일 후 입니다.</p>-->
+<!--              <script>-->
+<!--                let SD = document.getElementById("startDate");-->
+<!--                let ED = document.getElementById("endDate");-->
+<!--                let date = new Date(SD.value);-->
+<!--                document.write('시작일 : ' + date.toLocaleString() + '<br>');-->
+<!--                date.setDate(date.getDate() + 60);-->
+<!--                document.write('종료일 : ' + date.toLocaleString() + '<br>');-->
+
+<!--                ED.value = date+"";-->
+
+<!--                alert(ED);-->
+<!--              </script>-->
+<!--              <input name="endDate" id="endDate" type="hidden"/>-->
+<!--              <p>정산일은 펀딩 종료일로부터 14일 후 입니다.</p>-->
+<!--            </td>-->
+          </tr>
+
+          <tr>
+            <td class="col-md-6">
+              <h4>프로젝트 대표 이미지</h4>
+              <p>후원자들이 프로젝트의 내용을 쉽게 파악하고 좋은 인상을 받을 수 있도록 </p>
+              <p>이미지 가이드라인을 따라 주세요.</p>
+              <p>글자가 없는 이미지로여야만 합니다.</p>
+              <p>단, 영화, 공연, 게임, 전자책 분야 제목 및 제품 사진에 포함된 글자는 가능</p>
+            </td>
+            <td class="col-md-6">
+              <h5 class="choice-title">이미지 업로드</h5>
+              <p>파일형식: jpeg / png</p>
+              <input name="singleFile" id="singleFile" type="file" accept="image/png, image/jpeg">
+              <button type="button" onclick="file_upload()">업로드</button>
+
+              <script src="https://code.jquery.com/jquery-latest.js"></script>
+              <script>
+                function file_upload() {
+
+                  const formData = new FormData(document.getElementById("projectCreateForm"));
+
+                  $.ajax({
+                    url: '/project/fileUpload',
+                    data: formData,
+                    type		: 'POST',
+                    enctype		: 'multipart/form-data',
+                    processData	: false,
+                    contentType	: false,
+                    success: function (){},
+                    error: function () {
+                      alert("에러입니다");
+                    }
+                  });
+                }
+              </script>
+            </td>
+          </tr>
+
+<!--          <tr>-->
+<!--            <td class="col-md-6">-->
+<!--              <h4>검색태그</h4>-->
+<!--              <p>잠재 후원자의 관심사를 고려한 검색 태그를 입력해주세요.</p>-->
+<!--              <p>사이트 내에서 해당 태그로 검색한 후완자가 프로젝트를 발견할 수 있습니다.</p>-->
+<!--            </td>-->
+<!--            <td class="col-md-6">-->
+<!--              <p>쉼표로 구분합니다. 최대 3개까지 입력 가능</p>-->
+<!--              <input type="text" placeholder="예시) 고양이, 강아지, 냥냥이(2글자 이상)">-->
+<!--              &lt;!&ndash; 2글자 이상 조건 달아야 하는거 아닌가? + DTO에 태그를 안 넣어놔서 얘는 값이 안넘어가 &ndash;&gt;-->
+<!--            </td>-->
+<!--          </tr>-->
+          </tbody>
+        </table>
+          <div class="next_btn" style="margin: 100px 0px 0px 0px">
+            <button th:onclick="|location.href='@{/terms/judging_criteria}'|" type="button" class="btn btn-outline-secondary" data-toggle="collapse" data-target="#demo3">심사 기준</button>
+            <a button th:onclick="|location.href='@{/terms/fee_policy}'|" href="#" class="btn btn-outline-warning w-200">수수료 안내</a>
+            <a button th:onclick="|location.href='@{standardInfo}'|" href="#" class="btn btn-outline-warning w-200 move_btn">이전 페이지</a>
+            <input type="submit" value="다음페이지" class="btn btn-outline-warning w-200 move_btn" style="width: 100px">
+          </div>
+<!--        <input type="submit" value="다음으로 가기"> &lt;!&ndash; 밑에 버튼으로 어떻게 옮기나? form 안으로 아래 버튼들을 끌어와야해? &ndash;&gt;-->
+      </form>
+
+      <!-- 안내버튼  --> <!-- master test -->
+
+
+    </div>
+  </div>
+</th:block>
+</html>

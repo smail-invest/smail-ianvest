@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>SMILE INVEST</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link th:href="@{/css/manager/board_managerment.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/board/board_list.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/manager/menu_title.css}" rel="stylesheet" type="text/css">
+
+</head>
+
+<th:block layout:fragment="content">
+    <!-- title -->
+    <div>
+        <div class="title">
+            <div class="titleText">게시판 관리 페이지</div>
+            <div class="profileText">ooo 관리자님 어서오세요.</div>
+        </div>
+    </div>
+
+    <!-- table -->
+    <div class="outer outer-board-list">
+        <div class="table-area">
+            <!-- Board Nav -->
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link border-link" id="notice" th:onclick="|location.href='@{/manager/board_management_notice}'|">공지사항</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link border-link" th:onclick="|location.href='@{/manager/board_management_event}'|">이벤트</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link border-link" th:onclick="|location.href='@{/manager/board_management_faq}'|">FAQ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link border-link" th:onclick="|location.href='@{/manager/board_management_introduction}'|">회사소개</a>
+                </li>
+            </ul>
+            <table id="listArea">
+                <tr class="tb_head">
+                    <th class="table_center" width="100px">카테고리</th>
+                    <th width="700px">글제목</th>
+                    <th class="table_center" width="150px">작성일</th>
+                </tr>
+                <tr>
+                    <td class="table_center">배송</td>
+                    <td><a href="FAQ_user_post1.html">1번째 게시물입니다.</a></td>
+                    <td class="table_center">2022-12-14</td>
+                </tr>
+                <tr>
+                    <td class="table_center">배송</td>
+                    <td><a href="FAQ_user_post1.html">1번째 게시물입니다.</a></td>
+                    <td class="table_center">2022-12-14</td>
+                </tr>
+                <tr>
+                    <td class="table_center">배송</td>
+                    <td><a href="FAQ_user_post1.html">1번째 게시물입니다.</a></td>
+                    <td class="table_center">2022-12-14</td>
+                </tr>
+                <tr>
+                    <td class="table_center">배송</td>
+                    <td><a href="FAQ_user_post1.html">1번째 게시물입니다.</a></td>
+                    <td class="table_center">2022-12-14</td>
+                </tr>
+                <tr>
+                    <td class="table_center">배송</td>
+                    <td><a href="FAQ_user_post1.html">1번째 게시물입니다.</a></td>
+                    <td class="table_center">2022-12-14</td>
+                </tr>
+                <tr>
+                    <td class="table_center">배송</td>
+                    <td><a href="FAQ_user_post1.html">1번째 게시물입니다.</a></td>
+                    <td class="table_center">2022-12-14</td>
+                </tr>
+            </table>
+            <div class="board_Create">
+                <button onclick="location.href='mg_board_create.html'">글작성</button>
+                <button onclick="location.href='mg_board_modify.html'">수정하기</button>
+                <button>삭제하기</button>
+            </div>
+        </div>
+
+
+        <!-- Board List -->
+        <div class="d-flex justify-content-center">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- main -->
+        <!-- 검색 폼 -->
+        <div class="search-area" align="center">
+            <form id="loginForm" action="/chap99/board/list" method="get" style="display:inline-block">
+                <input type="hidden" name="currentPage" value="1">
+                <select id="searchCondition" name="searchCondition">
+                    <option value="category">카테고리</option>
+                    <option value="writer">작성자</option>
+                    <option value="title">제목</option>
+                    <option value="content">내용</option>
+                </select>
+                <input type="search" id="searchValue" class="rounded search" name="searchValue" placeholder="검색내용"
+                       value="">
+                <button type="submit" class="rounded search">검색</button>
+            </form>
+        </div>
+
+
+    </div>
+
+    <script>
+        if (document.getElementsByTagName("td")) {
+
+            const $tds = document.getElementsByTagName("td");
+            for (let i = 0; i < $tds.length; i++) {
+
+                $tds[i].onmouseenter = function () {
+                    this.parentNode.style.backgroundColor = "#FFFFCC";
+                    this.parentNode.style.cursor = "pointer";
+                }
+
+                $tds[i].onmouseout = function () {
+                    this.parentNode.style.backgroundColor = "white";
+                }
+            }
+        }
+    </script>
+</th:block>
+
+
+</html>

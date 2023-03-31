@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <link th:href="@{/css/terms/terms_common.css}" rel="stylesheet" type="text/css">
+  <link th:href="@{/css/manager/menu_title.css}" rel="stylesheet" type="text/css">
+</head>
+
+<th:block layout:fragment="content">
+  <!— Begin Page Content —>
+
+  <!-- main  -->
+
+  <div class="container">
+    <div class="row">
+      <br/>
+      <div class="col text-left">
+        <h1 text-align="left">기부 현황</h1>
+        <p class="text-right">ooo님 어서오세요</p>
+      </div>
+    </div> </div>
+
+  <hr>
+  <br>
+  <!-- support box -->
+
+
+  <div class="row">
+    <div class="col text-right">
+
+      <h1 text-align="right">나의 현재 기부 마일리지는<span id =jelly>1,000,000 젤리</span>입니다.</h1>
+
+
+    </div></div>
+  <br><br>
+
+  <div class="container">
+    <div class="row">
+      <br/>
+      <div class="col text-left">
+        <h2 text-align="left">기부현황</h2>
+
+      </div>
+    </div> </div>
+
+
+
+  <hr/>
+
+  </div>
+  <br><br><br>
+  <!-- Board List -->
+  <div class="outer outer-board-list">
+    <br>
+
+    <div class="table-area">
+      <table align="center" id="listArea">
+        <tr>
+          <th width="100px">구분</th>
+          <th width="700px">프로젝트명
+          </th>
+          <th width="150px">날짜</th>
+          <th width="150px">나의 기부금</th>
+        </tr>
+
+        <tr>
+          <td>1</td>
+          <td><a href="mileage_chargePost1.html">멍멍수제간식에 후원하셨습니다.</a></td>
+          <td>2022-12-14</td>
+          <td>100000 젤리</td>
+        </tr>
+
+        <tr>
+          <td>2</td>
+          <td><a href="mileage_chargePost2.html">멍멍수제간식에 후원하셨습니다.</a></td>
+          <td>2022-12-14</td>
+          <td>800 젤리</td>
+        </tr>
+
+        <tr>
+          <td>3</td>
+          <td><a href="mileage_chargePost3.html">멍멍수제간식에 후원하셨습니다.</a></td>
+          <td>2022-12-14</td>
+          <td>10000000 젤리</td>
+        </tr>
+
+
+
+
+
+      </table>
+    </div>
+
+    <!DOCTYPE html>
+    <br><br>
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <title>Insert title here</title>
+    </head>
+    <body>
+    <div class="pagingArea" align="center">
+      <!-- 맨 앞으로 이동 버튼 -->
+      <button id="startPage"><<</button>
+
+      <!-- 이전 페이지 버튼 -->
+
+
+      <button id="prevPage"><</button>
+
+
+      <!-- 숫자 버튼 -->
+
+
+
+      <button onclick="pageButtonAction(this.innerText);">1</button>
+
+
+
+
+      <button onclick="pageButtonAction(this.innerText);">2</button>
+
+
+
+      <button disabled>3</button>
+
+
+
+
+
+      <button onclick="pageButtonAction(this.innerText);">4</button>
+
+
+
+
+      <button onclick="pageButtonAction(this.innerText);">5</button>
+
+
+
+      <!-- 다음 페이지 버튼 -->
+
+
+      <button id="nextPage">></button>
+
+
+      <!-- 마지막 페이지로 이동 버튼 -->
+      <button id="maxPage">>></button>
+    </div>
+    </html>
+
+  </div>
+
+
+</th:block>
+</html>

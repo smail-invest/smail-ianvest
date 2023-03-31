@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <link th:href="@{/css/manager/board_create.css}" rel="stylesheet" type="text/css">
+</head>
+
+<th:block layout:fragment="content">
+  <!— Begin Page Content —>
+
+  <!-- title -->
+  <div class="container">
+    <div class="row">
+      <div class="title">
+        <div class="titleText">게시글 수정</div>
+      </div>
+
+      <!-- table -->
+      <form th:action="@{/board/qna/update}" method="post">
+        <div class="table">
+          <table class="listArea">
+            <tbody>
+            <input name="number" type="hidden" th:value="${ qna.number }" >
+            <tr>
+              <th class="table_center">게시물 제목</th>
+              <td>
+                <input name="title" type="text" th:value="${ qna.title }">
+              </td>
+            </tr>
+            <tr>
+              <th class="table_center">게시물 내용</th>
+              <td>
+                  <textarea name="content" cols="90" rows="15" th:text="${ qna.content }">
+                </textarea>
+              </td>
+            </tr>
+            <tr>
+              <th class="table_center">첨부 파일</th>
+              <td></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="saveCloseBtn">
+        <input type="submit" value="수정하기">
+<!--        <button type="button" th:onclick="|location.href='@{///}'|">닫기</button>-->
+      </div>
+    </div>
+  </form>
+
+
+</th:block>
+</html>

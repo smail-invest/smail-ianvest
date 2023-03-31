@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smile.invest.member.dao.MemberDAO">
+
+    <resultMap type="com.smile.invest.member.dto.MemberDTO" id="loginMemberResultMap">
+
+        <result property="userId" column="MEMBER_ID"/>
+        <result property="userPassword" column="MEMBER_PWD"/>
+        <result property="userName" column="MEMBER_NAME"/>
+        <result property="userEmail" column="MEMBER_EMAIL"/>
+        <result property="userPhone" column="PHONE"/>
+        <result property="userEnrollDate" column="ENROLL_DATE"/>
+        <result property="userType" column="MEMBER_TYPE"/>
+        <result property="outYn" column="OUT_YN"/>
+
+        <collection property="userRoleList" resultMap="memberRoleResultMap"/>
+
+    </resultMap>
+
+    <resultMap id="memberRoleResultMap" type="com.smile.invest.member.dto.MemberRoleDTO">
+
+        <result property="memberId" column="REF_MEMBER_ID"/>
+        <result property="authorityCode" column="AUTHORITY_CODE"/>
+
+        <association property="authority" resultMap="authorityResultMap"/>
+
+    </resultMap>
+
+    <resultMap id="authorityResultMap" type="com.smile.invest.member.dto.AuthorityDTO">
+
+        <result property="code" column="AUTHORITY_CODE"/>
+        <result property="name" column="AUTHORITY_NAME"/>
+        <result property="desc" column="AUTHORITY_DESCRIPTION"/>
+
+    </resultMap>
+
+
+    <select id="findMemberById" resultMap="loginMemberResultMap">
+        SELECT
+            AM.MEMBER_ID
+             , AM.MEMBER_PWD
+             , AM.MEMBER_NAME
+             , AM.MEMBER_EMAIL
+             , AM.PHONE
+             , AM.ENROLL_DATE
+             , AM.MEMBER_TYPE
+             , AM.OUT_YN
+             , AL.AUTHORITY_CODE REF_AUTHORITY_CODE
+             , AL.MEMBER_ID REF_MEMBER_ID
+             , A.AUTHORITY_CODE REF_AUTHORITY_CODE2
+             , A.AUTHORITY_NAME
+             , A.AUTHORIZATION_DESCRIPTION
+        FROM ALL_MEMBERS AM
+                 LEFT JOIN AUTHORITY_LIST AL ON AM.MEMBER_ID = AL.MEMBER_ID
+                 LEFT JOIN AUTHORITY A ON AL.AUTHORITY_CODE = A.AUTHORITY_CODE
+        WHERE AM.MEMBER_ID = #{ memberId }
+
+
+
+    </select>
+
+    <select id="findId" resultType="String" >
+        SELECT
+            MEMBER_ID
+        FROM ALL_MEMBERS
+        WHERE MEMBER_NAME = #{ name }
+          AND MEMBER_EMAIL = #{ email }
+
+    </select>
+
+    <insert id="insertMember" parameterType="MemberDTO">
+        INSERT
+          INTO ALL_MEMBERS A
+        (
+          A.MEMBER_ID
+        , A.MEMBER_PWD
+        , A.MEMBER_NAME
+        , A.MEMBER_EMAIL
+        , A.PHONE
+        )
+        VALUES
+        (
+           #{ userId }
+         , #{ userPassword }
+         , #{ userName }
+         , #{ userEmail }
+         , #{ userPhone }
+        )
+    </insert>
+
+    <insert id="insertAuth" parameterType="String">
+        INSERT
+        INTO AUTHORITY_LIST AL
+        (
+            AL.MEMBER_ID
+            , AL.AUTHORITY_CODE
+        )
+        VALUES
+        (
+            #{ userId }
+            , 'USER'
+        )
+    </insert>
+
+    <select id="checkId" parameterType="String" resultType="int">
+
+       SELECT
+              COUNT(MEMBER_ID)
+         FROM ALL_MEMBERS
+        WHERE MEMBER_ID = #{ userId }
+    </select>
+
+
+
+
+</mapper>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/no_hf_layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <link th:href="@{/css/log/login.css}" rel="stylesheet" type="text/css"/>
+</head>
+
+
+<th:block layout:fragment="content">
+
+    <!-- main -->
+    <div class="container-login100">
+        <div class="container-2">
+            <!-- logo -->
+            <div class="wrap-login100">
+                <div class="login100-pic js-tilt" data-tilt>
+                    <a href="../../index.html">
+                        <img src="/images/login_main_img.png" alt="IMG"/>
+                    </a>
+                </div>
+
+                <form action="/member/find_id_print" method="GET" class="login100-form validate-form">
+                    <span class="login100-form-title"> 아이디찾기 </span>
+
+                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                        <input class="input100" type="text" name="name" id="name" placeholder="Username"/>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Password is required">
+                        <input class="input100" type="text" name="email" id="email" placeholder="E-mail address"/>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <button type="submit" class="login100-form-btn" id="checkNameAndEmail">아이디 찾기</button>
+                    </div>
+
+                    <div class="text-center p-t-136"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</th:block>
+
+</html>

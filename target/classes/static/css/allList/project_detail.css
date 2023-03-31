@@ -1,0 +1,152 @@
+.whole-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.head-title-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+a:link,
+a:visited,
+a:hover,
+a:active {
+    text-decoration: none;
+    color: #000000;
+}
+
+.category-tag {
+    width: 70px;
+    height: 20px;
+    padding: 10px 10px 12px 12px;
+    border: solid 1px gray;
+    border-radius: 5px;
+    color: dimgrey;
+    background-color: #fafafa;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 0.3;
+}
+
+.cat-photo {
+    width: 500px;
+}
+
+/*.introduce-container {*/
+/*    display: flex;*/
+/*    justify-content: space-around;*/
+/*    width: 1000px;*/
+/*    margin-top: 40px;*/
+/*}*/
+
+.introduce {
+
+    margin: 50px 500px 50px 500px;
+
+}
+
+/*.introduce-description-top {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    justify-content: space-around;*/
+/*    width: 400px;*/
+/*    height: 300px;*/
+/*    margin-top: 50px;*/
+/*    padding-bottom: 100px;*/
+/*    border-bottom: 1px solid rgb(208, 190, 190);*/
+/*}*/
+
+/*.introduce-number {*/
+/*    font-size: 40px;*/
+/*}*/
+
+/*.introduce-description-bottom {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    height: 150px;*/
+/*}*/
+
+/*.target-bottom-left {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    margin-right: 10px;*/
+/*}*/
+
+.target-bottom-right {
+    display: flex;
+    flex-direction: column;
+}
+.target-title {
+    margin: 10px 10px 0 0;
+}
+
+.target-number {
+    margin: 10px 10px 0 0;
+}
+
+.button-wrapper {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 100px;
+}
+
+.heart-wrapper {
+    border: solid 1px rgb(208, 190, 190);
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.heart-photo {
+    width: 20px;
+}
+
+.share-wrapper {
+    border: solid 1px rgb(208, 190, 190);
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.share-photo {
+    width: 20px;
+}
+
+.support-wrapper {
+    border: solid 1px #e45353;
+    border-radius: 5px;
+    background-color: #e45353;
+    color: white;
+    padding: 18px 10px 5px 10px;
+}
+
+.nav-division {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 70px;
+}
+
+.nav-tap-right {
+    margin-top: 50px;
+}
+
+.present-money {
+    margin-top: 10px;
+}
+
+.present-click {
+    display: flex;
+    flex-direction: column;
+    border: solid 1px lightgray;
+    border-radius: 2px;
+    margin: 20px 20px 20px 10px;
+    padding: 20px 50px 20px 20px;
+}
+
+.present-click-info {
+    margin-top: 10px;
+    font-size: 10px;
+    color: gray;
+}

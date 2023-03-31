@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/no_bootstrap_layout}">
+
+<head>
+    <link th:href="@{/css/log/sign_up.css}" rel="stylesheet" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+</head>
+
+
+<th:block layout:fragment="content">
+
+    <div class="wrapper">
+        <div class="title">
+            <span>이메일 인증하기</span>
+        </div>
+
+        <form id="registForm" th:action="@{/member/email_certification}" method="post">
+            <div class="wrapperBody">
+                <div class="center">
+
+                    <div class="input_item">
+                        <p>이름</p>
+                        <input name="userEmail" id="userName" type="text" placeholder="이메일을 입력해 주세요">
+                        <input type="submit">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+</th:block>
+
+</html>

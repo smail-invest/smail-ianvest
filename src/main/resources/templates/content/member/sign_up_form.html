@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/no_bootstrap_layout}">
+
+<head>
+    <link th:href="@{/css/log/sign_up.css}" rel="stylesheet" type="text/css">
+      <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+
+
+</head>
+
+
+<th:block layout:fragment="content">
+
+    <div class="wrapper">
+        <div class="title">
+            <span>회원가입하기</span>
+        </div>
+
+        <form id="registForm" th:action="@{/member/sign_up_form}" method="post">
+            <div class="wrapperBody">
+                <div class="center">
+                    <div class="input_item">
+                        <p>이름</p>
+                        <input name="userName" id="userName" type="text" placeholder="이름을 입력해 주세요.">
+                    </div>
+
+                    <div class="input_item">
+                        <p>아이디</p>
+                        <div class="a">
+                            <input name="userId" id="userId"  class="input_id" type="text" minlength="6" maxlength="20"
+                                   placeholder="아이디 입력 (6~20자)">
+                            <button type="button" class="checkId" id="checkId" th:onclick="fn_checkId()">아이디중복확인</button>
+                        </div>
+                    </div>
+
+                    <div class="input_item">
+                        <p>비밀번호</p>
+                        <input name="userPassword" id="pw1" type="password" onchange="check_pw()" minlength="8" maxlength="20" placeholder="비밀번호 입력 (문자, 숫자, 특수문자로 조합한 8~20자)">   <!-- 우선 유효성 검사 보류 -->
+                        <div id="passwordError" class="error"></div>
+                        <input name="password2" id="pw2" type="password" onchange="check_pw()" maxlength="20" placeholder="비밀번호 재입력">
+                        <span id="check"></span>
+                        <div id="passwordCheckError" class="error"></div>
+                    </div>
+
+                    <div class="form-group email-form input_item">
+                        <p>이메일</p>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="userEmail" id="userEmail" placeholder="이메일">
+                            <button type="button" class="checkId" onclick="email_cc()">이메일 인증</button>
+
+                        </div>
+                    </div>
+
+                    <div class="input_item">
+                        <p>핸드폰번호</p>
+                        <input name="userPhone" type="tel" placeholder="연락처를 입력해주세요.">
+                    </div>
+
+                    <div class="signUp">
+                        <input type="submit" value="가입하기" id="signUpButton">
+                    </div>
+                </div>
+            </div>
+        </form>
+
+
+        <script type="text/javascript">
+            <!--비밀번호일치확인 -->
+            function check_pw() {
+                var pw = document.getElementById('pw1').value;
+                var SC = ["!", "@", "#", "$", "%"];
+                var check_SC = 0;
+
+                if (pw.length < 6 || pw.length > 16) {
+                    window.alert('비밀번호는 6글자 이상, 16글자 이하만 이용 가능합니다.');
+                    document.getElementById('pw1').value = '';
+                }
+                for (var i = 0; i < SC.length; i++) {
+                    if (pw.indexOf(SC[i]) != -1) {
+                        check_SC = 1;
+                    }
+                }
+                if (check_SC == 0) {
+                    window.alert('!,@,#,$,% 의 특수문자가 들어가 있지 않습니다.')
+                    document.getElementById('pw1').value = '';
+                }
+                if (document.getElementById('pw1').value != '' && document.getElementById('pw2').value != '') {
+                    if (document.getElementById('pw1').value == document.getElementById('pw2').value) {
+                        document.getElementById('check').innerHTML = '비밀번호가 일치합니다.'
+                        document.getElementById('check').style.color = 'blue';
+                    } else {
+                        document.getElementById('check').innerHTML = '비밀번호가 일치하지 않습니다.';
+                        document.getElementById('check').style.color = 'red';
+                    }
+                }
+            }
+
+           /* 아이디 중복확인 */
+            function fn_checkId() {
+                const userId = $('#userId').val(); //id값이 "id"인 입력란의 값을 저장 // 내가 가져올 값을 조회한다.
+                var id = document.getElementById('userId').value;
+
+
+                if (id.length < 6 || id.length > 20) {
+                    window.alert('아이디는 6글자 이상, 20글자 이하만 이용 가능합니다.');
+                    document.getElementById('userId').value = '';
+                } else {
+                    $.ajax({
+                        url: '/member/idCheck', //Controller에서 요청 받을 주소
+                        type: 'post', //POST 방식으로 전달
+                        data: {userId:userId},
+
+                        success: function (result) {
+                            if (result == 0) {
+                                alert("사용가능한 아이디입니다.");
+                            } else {
+
+                                alert("중복된 아이디입니다. 아이디를 다시 입력해주세요");
+                                $('#userId').val('');
+                            }
+                        },
+                        error: function () {
+                            alert("에러입니다");
+                        }
+                    });
+                };
+                };
+
+
+            /* 이메일 인증 상태 확인 */
+            function email_cc() {
+                const userId = $('#userId').val(); //id값이 "id"인 입력란의 값을 저장 // 내가 가져올 값을 조회한다.
+                const userEmail = $('#userEmail').val();
+
+                $.ajax({
+                    url: '/member/email_certification', //Controller에서 요청 받을 주소
+                    type: 'post', //POST 방식으로 전달
+                    data: {userId:userId, userEmail:userEmail},
+
+                    success: function (result){
+                        if(result === 'success' ){
+                            alert("메일 전송을 완료했습니다. 메일 인증을 해주세요")
+                        }
+                    },
+                    error: function () {
+                        alert("에러입니다");
+                    }
+                });
+            }
+
+
+        </script>
+
+    </div>
+</th:block>
+
+</html>

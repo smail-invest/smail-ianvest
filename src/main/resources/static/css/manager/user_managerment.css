@@ -1,0 +1,21 @@
+
+/* user search */
+.userSearch {
+    margin: 0px 250px 30px 250px;
+}
+
+.table {
+    margin-top: 50px;
+}
+
+
+/* search button */
+#search_btn {
+    text-align: center;
+}
+
+.search_Button{
+    border: 0px;
+    width: 20%;
+    height: 50px;
+}

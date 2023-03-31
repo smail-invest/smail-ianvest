@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <link th:href="@{/css/manager/board_create.css}" rel="stylesheet" type="text/css">
+</head>
+
+<th:block layout:fragment="content">
+  <!— Begin Page Content —>
+
+  <!-- title -->
+  <div class="container">
+    <div class="row">
+      <div class="title">
+        <div class="titleText">게시글 등록</div>
+      </div>
+
+      <!-- table -->
+      <form th:action="@{/board/notice/create}" method="post">
+        <div class="table">
+          <table class="listArea">
+            <tbody>
+            <tr>
+              <th scope="col" class="table_center">카테고리</th>
+              <td scope="col">공지사항</td>
+            </tr>
+            </tr>
+            <tr>
+              <th class="table_center">게시물 제목</th>
+              <td>
+                <input name="title" type="text">
+              </td>
+            </tr>
+            <tr>
+              <th class="table_center">작성자</th>
+              <td>
+                <p name="memberId" sec:authentication="principal.username"></p>
+              </td>
+            </tr>
+            <tr>
+              <th class="table_center">게시물 내용</th>
+              <td>
+                <textarea class="form-control" name="content" rows="6">
+
+                </textarea>
+              </td>
+            </tr>
+            <tr>
+              <th class="table_center">첨부 파일</th>
+              <td></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+      <div class="saveCloseBtn">
+        <input type="submit" value="등록하기">
+        <button type="button" th:onclick="|location.href='@{/board/notice/list}'|">닫기</button>
+      </div>
+    </div>
+  </form>
+
+
+</th:block>
+</html>

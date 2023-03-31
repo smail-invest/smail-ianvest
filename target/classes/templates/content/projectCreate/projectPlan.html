@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <link th:href="@{/css/projectcreate/basicinfo.css}" rel="stylesheet" type="text/css">
+</head>
+
+<th:block layout:fragment="content">
+    <!— Begin Page Content —>
+
+    <!-- title -->
+    <div class="title">
+        <div class="titleText">프로젝트 등록</div>
+    </div>
+
+    <!-- main -->
+    <div>
+        <!-- nav -->
+        <div class="nav_box">
+            <ul class="nav nav_margin">
+                <li class="nav-item">
+                    <a>심사 기준 안내</a>
+                </li>
+                <li class="nav-item">
+                    <a>기본 정보</a>
+                </li>
+                <li class="nav-item">
+                    <a>패키지 구성</a>
+                </li>
+                <li class="nav-item check">
+                    <a>프로젝트 계획</a>
+                </li>
+                <li class="nav-item">
+                    <a>신뢰와 안전</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- input -->
+        <form th:action="@{/project/create/safety}" method="post">
+            <div class="main_input">
+                <input name="userId" type="hidden" th:value="${ project.userId }">
+                <input name="categoryCode" type="hidden" th:value="${ project.categoryCode }">
+                <input name="projectTitle" type="hidden" th:value="${ project.projectTitle }">
+                <input name="shortInfo" type="hidden" th:value="${ project.shortInfo }">
+                <input name="targetMileage" type="hidden" th:value="${ project.targetMileage }">
+                <input name="businessNum" type="hidden" th:value="${ project.businessNum }">
+                <input name="startDate" type="hidden" th:value="${ #dates.format(project.startDate, 'yyyy-MM-dd') }">
+<!--                <input name="endDate"  th:value="${ #dates.format(project.endDate, 'yyyy-MM-dd') }">-->
+                <input name="optionName" type="hidden" th:value="${ project.itemOption.optionName }">
+                <input name="price" type="hidden" th:value="${ project.itemOption.price }">
+                <input name="optionComponents" type="hidden" th:value="${ project.itemOption.optionComponents }">
+
+                <div>
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    프로젝트 소개
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    막연하다면 아래의 질문에 대한 답이 내용에 포함되도록 작성해보세요.
+                                    <p>Q. 무엇을 만들기 위한 프로젝트인가요?</p>
+                                    <p>Q. 프로젝트를 간단히 소개한다면?</p>
+                                    <p>Q. 이 프로젝트가 왜 의미있나요?</p>
+                                    <p>Q. 이 프로젝트를 시작하게 된 배경이 무엇인가요?</p>
+                                    <textarea name="longInfo" rows="10" cols="80">이곳에 작성해주세요.</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    프로젝트 예산
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    실정하신 목표 금액을 어디에 사용 예정이신지 구체적인 지출 항목으로 적어주세요.
+                                    <ul>
+                                        <li>예산은 '제작비'가 아닌 구체적인 '항목'으로 적어주세요.</li>
+                                        <li>이번 프로젝트의 실행에 필요한 비용으로만 작성해 주세요.</li>
+                                        <li>기부, 다음 프로젝트에 사용하기 등은 이번 프로젝트의 예산으로 볼 수 없어요.</li>
+                                        <li>만일 전체 제작 비용 중 일부만 모금하시는 경우라면, 나머지 제작 비용은 어떻게 마련 예정인지 추가로 작성해 주세요.</li>
+                                    </ul>
+                                    <br>
+                                    <p>(예시)</p>
+                                    <br>
+                                    목표 금액은 아래의 지출 항목으로 사용할 예정입니다.
+                                    <ul>
+                                        <li>인건비</li>
+                                        <li>배송비</li>
+                                        <li>발주비</li>
+                                        <li>디자인 의뢰비</li>
+                                        <li>수수료</li>
+                                    </ul>
+                                    <textarea name="expectedUse" rows="10" cols="80">이곳에 작성해주세요.</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseThree" aria-expanded="false"
+                                        aria-controls="collapseThree">프로젝트 일정
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    아래의 양식을 참고하여 작성해보세요.
+                                    <br>
+                                    <p>(예시)</p>
+                                    <br>
+                                    <ul>
+                                        <li>0월 0일 : 현제 제품 시안 및 1차 샘플 제작</li>
+                                        <li>0월 0일 : 펀딩 시작일</li>
+                                        <li>0월 0일 : 샘플 작업 보완</li>
+                                        <li>0월 0일 : 펀딩 종료일</li>
+                                        <li>0월 0일 : 2차 샘플 제작</li>
+                                        <li>0월 0일 : 제품 디테일 보관</li>
+                                        <li>0월 0일 : 제품 발주 시작</li>
+                                        <li>0월 0일 : 후가공 처리 및 포장 작업</li>
+                                        <li>0월 0일 : 선물 예상 전달일</li>
+                                    </ul>
+                                    <textarea name="projectSchedule" rows="10" cols="80">이곳에 작성해주세요.</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFour">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseFour" aria-expanded="false"
+                                        aria-controls="collapseFour">프로젝트 팀 소개
+                                </button>
+                            </h2>
+                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <textarea name="writerInfo" rows="10" cols="80">이곳에 작성해주세요.</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                 <div class="next_btn" style="margin: 100px 0px 0px 0px">
+                    <button th:onclick="|location.href='@{/terms/judging_criteria}'|" type="button" class="btn btn-outline-secondary" data-toggle="collapse" data-target="#demo3">심사 기준</button>
+                    <a button th:onclick="|location.href='@{/terms/fee_policy}'|" href="#" class="btn btn-outline-warning w-200">수수료 안내</a>
+                    <a button th:onclick="|location.href='@{projectOption}'|" href="#" class="btn btn-outline-warning w-200 move_btn">이전 페이지</a>
+                    <input type="submit" value="다음페이지" class="btn btn-outline-warning w-200 move_btn" style="width: 100px">
+                </div>
+        </form>
+    </div>
+</th:block>
+</html>

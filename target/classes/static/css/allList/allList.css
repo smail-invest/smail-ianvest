@@ -1,0 +1,29 @@
+.col-md-3 mainTable{
+
+    margin-bottom: 30px;
+}
+
+.category_button {
+    margin-top: 100px;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.category_btn {
+    font-size: 30px;
+    background-color: white;
+    border: 0px;
+    margin: 0px 10px 0px 10px;
+}
+
+
+.category_btn:hover {
+    color: #F75D59;
+    font-weight: bold;
+}
+
+.category_btn:active {
+    color: #F75D59;
+}
+
+

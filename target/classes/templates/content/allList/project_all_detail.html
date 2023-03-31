@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <link th:href="@{/css/allList/project_detail.css}" rel="stylesheet" type="text/css">
+</head>
+
+<th:block layout:fragment="content">
+    <!— Begin Page Content —>
+
+    <div class="detail-whole-container">
+        <div class="head-title-wrapper">
+            <!--      <a href="#">-->
+            <!--        <p class="category-tag">반려 용품</p>-->
+            <!--      </a>-->
+            <h1 class="" th:text="${ detail.title }"></h1>
+        </div>
+        <!--    <div class="introduce-container">-->
+        <!--      <div class="introduce-photo">-->
+        <!--        <img class="cat-photo" th:src="${ }" alt="cat-photo" />-->
+        <!--      </div>-->
+        <div class="introduce-description-wrapper">
+            <div class="introduce" style="width: 70%">
+                <div class="number-unit-wrapper">
+                    <div class="target-title" th:text="|상품 설명 : ${ detail.shortIntroduction}|"></div>
+                </div>
+                <div class="number-unit-wrapper">
+                    <div class="target-title" th:text="|목표 금액 : ${ detail.targetMileage }|"></div>
+                </div>
+                <div class="number-unit-wrapper">
+                    <div class="target-title" th:text="| 목표 금액 달성 시 ${#dates.format(detail.endDate, 'yyyy-MM-dd')} 에 결제 진행|"></div>
+                </div>
+                <div class="number-unit-wrapper">
+                    <div class="target-title" th:text="| 프로젝트 일정 : ${#dates.format(detail.startDate, 'yyyy-MM-dd')} - ${#dates.format(detail.endDate, 'yyyy-MM-dd')}|"></div>
+                </div>
+            </div>
+            <div class="nav-tap-right">
+                <div class="present-choice">
+                    <strong>상품 선택</strong>
+                    <form th:action="@{|/projectPay/${detail.projectNumber}|}" method="post">
+                        <div class="present-money">
+                            <a>
+                                <div class="present-click">
+                                    <span th:text="${ detail.getItemOption()[0].getOptionName() }"></span>
+                                    <span th:text="${ detail.getItemOption()[0].getOptionComponents() }"></span>
+                                    <span class="present-click-info" th:text="${ detail.getItemOption()[0].getPrice()}+젤리"></span>
+                                </div>
+                            </a>
+                        </div>
+                        <button style="background-color: #F75D59; border-radius: 10px; color:white; border: 0px; width: 100%; height: 100px; font-size: 30px;">이 프로젝트 후원하기</button>
+                    </form>
+                </div>
+            </div>
+            <div class="button-wrapper">
+                <img th:src="@{|/images/project/${ detail.projectFileList[0].fileChangeName}|}" width="800px" class="card-img-top" alt="프로젝트 상세 이미지" usemap="myMap" />
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!--Nav -->
+    <div class="nav-division">
+        <div class="nav-tap-left">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a
+                            class="nav-item nav-link active"
+                            id="nav-info-tab"
+                            data-toggle="tab"
+                            href="#nav-info"
+                            role="tab"
+                            aria-controls="nav-info"
+                            aria-selected="true"
+                    >프로젝트 소개</a>
+                    <a
+                            class="nav-item nav-link"
+                            id="nav-schedule-tab"
+                            data-toggle="tab"
+                            href="#nav-schedule"
+                            role="tab"
+                            aria-controls="nav-schedule"
+                            aria-selected="false"
+                    >프로젝트 일정
+                    </a>
+                    <a
+                            class="nav-item nav-link"
+                            id="nav-present-tab"
+                            data-toggle="tab"
+                            href="#nav-present"
+                            role="tab"
+                            aria-controls="nav-present"
+                            aria-selected="false"
+                    >창작자 소개</a
+                    >
+                    <a
+                            class="nav-item nav-link"
+                            id="nav-faith-tab"
+                            data-toggle="tab"
+                            href="#nav-faith"
+                            role="tab"
+                            aria-controls="nav-faith"
+                            aria-selected="false"
+                    >신뢰와 안전</a
+                    >
+                </div>
+            </nav>
+
+            <div class="tab-content" id="nav-tabContent">
+                <div
+                        class="tab-pane fade show active"
+                        id="nav-info"
+                        role="tabpanel"
+                        aria-labelledby="nav-info-tab"
+                >
+                    <div class="tap-left" style="white-space: pre-wrap" th:text="${ detail.longIntroduction }">프로젝트 소개 적기</div>
+                </div>
+                <div
+                        class="tab-pane fade"
+                        id="nav-schedule"
+                        role="tabpanel"
+                        aria-labelledby="nav-schedule-tab"
+                >
+                    <div class="tap-left" th:text="|${#dates.format(detail.startDate, 'yyyy-MM-dd')} - ${#dates.format(detail.endDate, 'yyyy-MM-dd')}|">프로젝트 일정적기</div>
+                </div>
+                <div
+                        class="tab-pane fade"
+                        id="nav-present"
+                        role="tabpanel"
+                        aria-labelledby="nav-present-tab"
+                >
+                    <div class="tap-left" style="white-space: pre" th:text="|${ detail.writerIntroduction } ${ detail.additionalPolicy }|">창작자 소개적기</div>
+                </div>
+                <div
+                        class="tab-pane fade"
+                        id="nav-faith"
+                        role="tabpanel"
+                        aria-labelledby="nav-faith-tab"
+                >
+                    <div class="tap-left" style="white-space: pre" th:text="|${ detail.expectedDifficulty } ${ detail.additionalPolicy }|" >신뢰와 안전 적기</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</th:block>
+</html>

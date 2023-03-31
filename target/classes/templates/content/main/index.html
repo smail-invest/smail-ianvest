@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{layouts/layout}">
+<link th:href="@{/css/allList/allList.css}" rel="stylesheet" type="text/css">
+
+<th:block layout:fragment="content">
+
+  <!— Begin Page Content —>
+  <section id="banner">
+    <img src="images/banner-1.png" width="100%" height="100%" />
+  </section>
+
+  <!— Begin Page Content —>
+  <!-- mainTable -->
+  <!-- gotegory button -->
+
+
+  <!-- card list -->
+  <div class="container mx-auto mt-44 main" style="margin-top: 50px">
+    <div class="row mainrow">
+
+      <th:block th:each="project : ${ projectList }">
+
+        <div class="col-md-3 mainTable" style="margin-bottom: 50px">
+          <div class="card">
+            <a th:href="@{|/allList/detail/${project.projectNumber}|}">
+              <img th:src="@{|/images/project/${ project.projectFileList[0].fileChangeName}|}" class="card-img-top" alt="프로젝트 대표 이미지" usemap="myMap" height="200px" />
+            </a>
+            <map name="myMap">
+              <area shape="rect" coords="0, 0, 286, 191" href="#" target="_blank" />
+            </map>
+            <div class="card-body">
+              <h5 class="card-title" th:text="${ project.title }">프로젝트 제목</h5>
+              <h6 class="card-subtitle mb-4 text-muted" th:text="${ project.memberInfoList[0].memberId }">창작자</h6>
+              <div class="card_text">
+                <span th:text="${ project.targetMileage }"></span>
+                <span>젤리</span>
+                <!--              <span class="fd" th:text="${ project.reach}">80% 달성률</span>-->
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </th:block>
+
+    </div>
+  </div>
+
+</th:block>
+
+
+</html>
+

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <link th:href="@{/css/mypage/mypage_info.css}" rel="stylesheet" type="text/css">
+  <link th:href="@{/css/manager/menu_title.css}" rel="stylesheet" type="text/css">
+</head>
+
+<th:block layout:fragment="content">
+
+  <!-- main -->
+  <div>
+    <div class="title">
+      <div class="titleText">개인정보</div>
+      <div class="profileText">
+<!--        <span th:text="${ user.getUserId() }"></span>-->
+        <span>님 어서오세요.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row main_row">
+      <div class="mb-3">
+        <p class="info_head">아이디</p>
+        <p class="my_info" th:text="${ memdto.memberId }"></p>
+      </div>
+      <div class="mb-3">
+        <p class="info_head">이름</p>
+        <p class="my_info" th:text="${ memdto.memberName }"></p>
+      </div>
+      <div class="mb-3">
+        <p class="info_head">이메일</p>
+        <p class="my_info" th:text="${ memdto.memberEmail }"></p>
+      </div>
+      <div class="mb-3">
+        <p class="info_head">전화번호</p>
+        <p class="my_info" th:text="${memdto.phone }"></p>
+      </div>
+      <div class="mb-3">
+        <p class="info_head">가입일</p>
+        <p class="my_info" th:text="${ memdto.enrollDate }"></p>
+      </div>
+
+      <div style="flex-direction: row">
+        <div class="mb-3 main_btn">
+         <button id="btnDelete" type="button">탈퇴시키기</button>
+         <script>
+          document.getElementById("btnDelete").addEventListener('click',() => {
+            const memberId = '[[${memberId}]]';
+            location.href='/manager/user/detail/delete/'+memberId;
+          });
+         </script>
+        </div>
+
+        <div class="mb-3 main_btn">
+         <button type="button" class="btn1" th:onclick="|location.href='@{/manager/user_management}'|">목록으로</button>
+        </div>
+
+      <div class="mb-3 main_btn">
+        <button type="button" class="btn1" th:onclick="|location.href='@{/manager/main}'|">관리자 메인으로</button>
+      </div>
+
+    </div>
+
+  </div>
+
+</th:block>
+</html>

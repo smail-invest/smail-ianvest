@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+  <link th:href="@{/css/allList/allList.css}" rel="stylesheet" type="text/css">
+</head>
+
+<th:block layout:fragment="content">
+  <!— Begin Page Content —>
+  <!-- mainTable -->
+  <!-- gotegory button -->
+  <div class="category_btn_container">
+    <div class="category_button">
+      <button type="button" class="category_btn" th:onclick="|location.href='@{/all_list}'|">전체</button>
+      <button type="button" class="category_btn" th:onclick="|location.href='@{/food_list}'|">푸드</button>
+      <button type="button" class="category_btn" th:onclick="|location.href='@{/ware_list}'|">용품</button>
+      <button type="button" class="category_btn" th:onclick="|location.href='@{/style_list}'|">스타일</button>
+      <button type="button" class="category_btn" th:onclick="|location.href='@{/service_list}'|">서비스</button>
+    </div>
+  </div>
+
+  <!-- card list -->
+  <div class="container mx-auto mt-44 main">
+    <!-- title & sort -->
+    <div class="title_main">
+      <div class="title_text">
+        <h3>스타일보기</h3>
+      </div>
+      <div class="crowdy-rwd-select" style="margin-bottom: 10px">
+        <select dir="rtl" class="crowdy-select-box">
+          <option value="" disabled="disabled" hidden="hidden"></option>
+          <option value="1">펀딩금액순</option>
+          <option value="2">마감임박순</option>
+          <option value="3">최신순</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row mainrow">
+
+      <th:block th:each="project : ${ projectList }">
+
+      <div class="col-md-3 mainTable" style="margin-bottom: 50px">
+        <div class="card">
+          <a th:href="@{|/allList/detail/${project.projectNumber}|}">
+          <img th:src="@{|/images/project/${ project.projectFileList[0].fileChangeName}|}" class="card-img-top" alt="프로젝트 대표 이미지" usemap="myMap"  height="200px"/>
+          </a>
+            <map name="myMap">
+            <area shape="rect" coords="0, 0, 286, 191" href="#" target="_blank" />
+          </map>
+          <div class="card-body">
+            <h5 class="card-title" th:text="${ project.title }">프로젝트 제목</h5>
+            <h6 class="card-subtitle mb-4 text-muted" th:text="${ project.memberInfoList[0].memberId }">창작자</h6>
+            <div class="card_text">
+              <span th:text="${ project.targetMileage }"></span>
+              <span>젤리</span>
+<!--              <span class="fd" th:text="${ project.reach}">80% 달성률</span>-->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      </th:block>
+
+    </div>
+  </div>
+
+</th:block>
+
+</html>

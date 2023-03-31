@@ -1,0 +1,49 @@
+.footer-wrapper {
+  border-top: solid 1px rgb(173, 173, 173);
+}
+
+.color-black {
+  color: black;
+}
+
+.color-gray {
+  color: rgb(114, 114, 114);
+}
+
+/* footer table head */
+.bold {
+  font-weight: 700;
+}
+
+.copyright {
+  display: flex;
+  justify-content: space-between;
+  margin: 40px 100px 40px 100px;
+  padding-top: 20px;
+  border-top: solid 1px rgb(173, 173, 173);
+}
+
+.copyright-info {
+  margin-top: 20px;
+}
+
+.cor-info {
+  padding: 0 15px 5px 1px;
+  font-size: 13px;
+}
+
+.footer-info {
+  height: 70px;
+  padding: 10px 0 0 20px;
+  font-size: 12px;
+  background-color: #eaeaea;
+}
+
+.customer-center {
+  margin-left: 200px;
+}
+
+a {
+  text-decoration: none;
+}
+

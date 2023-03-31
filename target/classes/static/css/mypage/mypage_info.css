@@ -1,0 +1,51 @@
+.main_row {
+    margin: 100px 20% 200px 20%;
+}
+
+.main_row p {
+    margin: 30px 0px 30px 0px;
+}
+
+.info_head {
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 10px;
+}
+
+.my_info {
+    font-size: 20px;
+    border-bottom: solid 1px black;
+    color: rgb(118, 118, 118);
+    letter-spacing: 3px;
+}
+
+input {
+    width: 60%;
+}
+
+/* main button */
+.main_row button {
+    float: right;
+    border: 0px;
+    background-color: #F75D59;
+    color: white;
+    border-radius: 10px;
+    width: 10%;
+    font-weight: 250;
+}
+
+
+.main_btn {
+    text-align: center;
+    margin-top: 7%;
+}
+
+.main_btn button {
+    border: 0px;
+    background-color: #F75D59;
+    color: white;
+    border-radius: 10px;
+    width: 20%;
+    height: 130%;
+    margin: 0px 5px 0px 5px;
+}

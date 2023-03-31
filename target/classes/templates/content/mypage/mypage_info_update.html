@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <link th:href="@{/css/mypage/mypage_info.css}" rel="stylesheet" type="text/css">
+  <link th:href="@{/css/manager/menu_title.css}" rel="stylesheet" type="text/css">
+</head>
+
+<th:block layout:fragment="content">
+  <!— Begin Page Content —>
+
+  <!-- main -->
+  <div>
+    <div class="title">
+      <div class="titleText">개인정보 - 변경</div>
+      <div class="profileText">
+        <span th:text="${ user.getUserId() }"></span>
+        <span>님 어서오세요.</span>
+      </div>
+    </div>
+  </div>
+
+  <form th:action="@{/mypage/info/update}" method="post">
+    <div class="container">
+      <div class="row main_row">
+        <div class="mb-3">
+          <input
+                  class="info_head"
+                  type="hidden"
+                  id="userId"
+                  name="userId"
+                  th:value="${ #authentication.getPrincipal().getUserId() }"
+          >
+        </div>
+        <div class="mb-3">
+          <p class="info_head pw">비밀번호</p>
+          <input type="password" name="userPassword">
+          <p class="info_head pw">비밀번호 확인</p>
+          <input type="password">
+        </div>
+
+        <div class="mb-3">
+          <p class="info_head">이름</p>
+          <p class="my_info" th:text="${ user.getUserName() }"></p>
+        </div>
+        <div class="mb-3">
+          <p class="info_head">이메일</p>
+          <input placeholder="변경할 이메일" name="userEmail">
+        </div>
+        <div class="mb-3">
+          <p class="info_head">전화번호</p>
+          <input placeholder="변경할 전화번호" name="userPhone">
+        </div>
+        <div class="mb-3">
+          <p class="info_head">가입일</p>
+          <p class="my_info">2022-10-10</p>
+        </div>
+        <div class="mb-3 main_btn">
+          <button type="button" class="btn btn-pk" id="goMain">돌아가기</button>
+          <input type="submit" value="수정하기" class="btn btn-or">
+          <button th:onclick="|location.href='@{/mypage/info}'|">취소</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</th:block>
+
+<script th:inline="javascript">
+
+  const $goMain = document.getElementById("goMain");
+
+  $goMain.onclick = function() {
+    location.href = "/mypage/info";
+  }
+
+</script>
+
+</html>

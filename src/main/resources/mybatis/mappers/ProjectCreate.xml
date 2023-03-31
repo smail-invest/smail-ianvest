@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 여기는 경로를 알맞게 적어주어야 한다 -->
+<mapper namespace="com.smile.invest.projectCreate.dao.ProjectCreateDAO">
+
+    <resultMap id="fileResultMap" type="com.smile.invest.projectCreate.dto.ProjectFile1DTO">
+
+        <result property="fileNum" column="FILE_NUMBER"/>
+        <result property="fileType" column="FILE_TYPE"/>
+        <result property="fileLocation" column="FILE_LOCATION"/>
+        <result property="fileOriginName" column="FILE_ORIGIN_NAME"/>
+        <result property="fileChangeName" column="FILE_CHANGE_NAME"/>
+        <result property="fileCreateDate" column="FILE_CREATE_DATE"/>
+        <result property="fileDeleteYn" column="FILE_DELETE_YN"/>
+        <result property="projectNum" column="PROJECT_NUMBER"/>
+
+    </resultMap>
+
+
+    <insert id="insertProject" parameterType="ProjectCreateDTO">
+        INSERT INTO SI_PROJECT
+            (
+            PROJECT_NUMBER
+          , PROJECT_CATEGORY_CODE
+          , PROJECT_TITLE
+          , WRITER_INTRODUCTION
+          , SHORT_INTRODUCTION
+          , LONG_INTRODUCTION
+          , TARGET_MILEAGE
+          , START_DATE
+          , EXPECTED_USE
+          , BUSINESS_LICENSE_NUMBER
+          , EXPECTED_DIFFICULTY
+          , ADDITIONAL_POLICY
+          , PROJECT_SCHEDULE
+            )
+        VALUES
+            (
+             'pro'||LPAD(SEQ_PROJECT_NUMBER.NEXTVAL, 3, '0')
+           , #{ categoryCode }
+           , #{ projectTitle }
+           , #{ writerInfo }
+           , #{ shortInfo }
+           , #{ longInfo }
+           , #{ targetMileage }
+           , #{ startDate }
+           , #{ expectedUse }
+           , #{ businessNum }
+           , #{ expectedDifficulty }
+           , #{ additionalPolicy }
+           , #{ projectSchedule }
+            )
+
+        <selectKey resultType="string" keyProperty="projectNum" keyColumn="PROJECT_NUMBER" order="AFTER">
+            SELECT  'pro'||LPAD(SEQ_PROJECT_NUMBER.CURRVAL, 3, '0') AS PROJECT_NUMBER
+            FROM DUAL
+        </selectKey>
+    </insert>
+
+    <insert id="insertOption" parameterType="ItemOptionDTO">
+        INSERT INTO ITEM_OPTION
+            (
+             OPTION_NUMBER
+           , PRICE
+           , PROJECT_NUMBER
+           , OPTION_NAME
+           , OPTION_COMPONENTS
+            )
+        VALUES
+            (
+             'opt'||SEQ_OPTION_NUMBER.NEXTVAL
+           , #{ price }
+           , #{ projectNum }
+           , #{ optionName }
+           , #{ optionComponents }
+            )
+    </insert>
+
+    <insert id="insertFile" parameterType="ProjectFile1DTO">
+        INSERT INTO PROJECT_FILE PF
+            (
+            PF.FILE_NUMBER
+            , PF.FILE_TYPE
+            , PF.FILE_LOCATION
+            , PF.FILE_ORIGIN_NAME
+            , PF.FILE_CHANGE_NAME
+            )
+        VALUES
+            (
+            'pfile' || SEQ_FILE_NO.NEXTVAL
+           , #{ fileType }
+           , #{ fileLocation }
+           , #{ fileOriginName }
+           , #{ fileChangeName }
+            )
+    </insert>
+
+    <update id="insertProjectNum" parameterType="ProjectCreateDTO">
+        UPDATE PROJECT_FILE SET PROJECT_NUMBER = #{ projectNum } WHERE PROJECT_NUMBER IS NULL
+    </update>
+
+    <insert id="insertItemNotice" parameterType="ItemInformationNoticeDTO">
+        INSERT INTO ITEM_INFORMATION_NOTICE
+            (
+            COUNTRY_MANUFACTURE
+          , COUNTRY_ORIGIN
+          , OPTION_SIZE
+          , MATERIALS
+          , QUALITY_GUARANTEE_STANDARD
+          , CUSTOMER_SERVICE
+          , PROJECT_NUMBER
+            )
+        VALUES
+            (
+            #{ countryManufacture }
+          , #{ countryOrigin }
+          , #{ optionSize }
+          , #{ materials }
+          , #{ qualityGuaranteeStandard }
+          , #{ customerService }
+          , #{ projectNum }
+            )
+    </insert>
+</mapper>

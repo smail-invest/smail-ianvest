@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smile.invest.mypage.dao.UserDAO">
+
+    <resultMap type="com.smile.invest.mypage.dto.UserDTO" id="loginMemberResultMap">
+
+        <result property="userId" column="MEMBER_ID"/>
+        <result property="userPassword" column="MEMBER_PWD"/>
+        <result property="userName" column="MEMBER_NAME"/>
+        <result property="userEmail" column="MEMBER_EMAIL"/>
+        <result property="userPhone" column="PHONE"/>
+        <result property="userCreateDate" column="ENROLL_DATE"/>
+        <result property="userType" column="MEMBER_TYPE"/>
+        <result property="outYn" column="OUT_YN"/>
+
+    </resultMap>
+    <resultMap type="com.smile.invest.mypage.dto.FeeDTO" id="feeResultMap">
+
+        <result property="feeNumber" column="FEE_NUMBER"/>
+        <result property="feeName" column="FEE_NAME"/>
+        <result property="fee" column="FEE_FEE"/>
+
+
+    </resultMap>
+
+
+
+    <select id="userInfo" resultMap="loginMemberResultMap">
+        SELECT
+            AM.MEMBER_ID
+             , AM.MEMBER_NAME
+             , AM.MEMBER_EMAIL
+             , AM.PHONE
+             , AM.ENROLL_DATE
+        FROM ALL_MEMBERS AM
+        WHERE AM.MEMBER_ID = #{ userId }
+    </select>
+
+    <update id="updateMember">
+        UPDATE ALL_MEMBERS AM
+        SET
+            AM.MEMBER_PWD = #{ userPassword }
+            , AM.PHONE = #{ userPhone }
+            , AM.MEMBER_EMAIL = #{ userEmail }
+        WHERE MEMBER_ID = #{ userId }
+        AND OUT_YN = 'N'
+    </update>
+
+    <select id="userMileageSearch" resultType="int">
+        SELECT
+            TOTAL_MILEAGE
+        FROM ALL_MEMBERS AM
+                 JOIN MILEAGE M ON AM.MEMBER_ID = M.MEMBER_ID
+        WHERE AM.MEMBER_ID = #{ userId }
+    </select>
+
+
+    <update id="saveMileage">
+        UPDATE
+               MILEAGE A
+        SET  A.TOTAL_MILEAGE = #{ realPoint }
+       WHERE MEMBER_ID = #{ userId }
+    </update>
+
+    <select id="fee" resultType="double">
+        SELECT
+               FEE_FEE
+          FROM FEE
+
+         WHERE FEE_NAME = #{ feeName }
+    </select>
+
+    <select id="findFee" resultType="String">
+        SELECT
+              FEE_NUMBER
+         FROM FEE
+
+        WHERE FEE_NAME = #{ feeName }
+    </select>
+
+    <insert id="registerMileage" parameterType="ChargingHistoryDTO">
+        INSERT
+           INTO CHARGING_HISTORY
+        (
+          MILEAGE_HISTORY_NUMBER
+        , MEMBER_ID
+        , CHARGE_DATE
+        , FEE_NUMBER
+        )
+        VALUES
+            (
+               #{ mileageHistoryNum }
+              , #{ userId }
+              , SYSDATE
+              , #{ feeNumber }
+            )
+    </insert>
+
+    <insert id="chargeHistory" parameterType="MileageHistoryDTO">
+        INSERT
+          INTO MILEAGE_HISTORY
+       (
+           MILEAGE_HISTORY_NUMBER
+         , MILEAGE_USE_CATEGORY
+         , MILEAGE_GIVEN
+         , PAYMENT_AMOUNT
+       )
+       VALUES
+       (
+         'mileageHistory' || SEQ_CHARGING_HISTORY.NEXTVAL
+       , null
+       , #{ mileageGiven }
+       , #{ paymentAmount }
+           )
+
+        <selectKey keyProperty="mileageHistoryNum" keyColumn="MILEAGE_HISTORY_NUMBER" resultType="string" order="AFTER">
+            SELECT 'mileageHistory' || SEQ_CHARGING_HISTORY.CURRVAL
+            FROM DUAL
+        </selectKey>
+
+    </insert>
+
+
+</mapper>

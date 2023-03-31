@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smile.invest.manager.dao.MemberMapper9">
+
+    <resultMap id="MemberResultMap" type="MemberDTO9" >
+
+        <id property="memberId" column="MEMBER_ID"/>
+        <result property="memberName" column="MEMBER_NAME"/>
+        <result property="memberEmail" column="MEMBER_EMAIL"/>
+        <result property="phone" column="PHONE"/>
+        <result property="enrollDate" column="ENROLL_DATE"/>
+        <result property="memberType" column="MEMBER_TYPE"/>
+        <result property="outYn" column="OUT_YN"/>
+
+    </resultMap>
+
+    <select id="findAll" resultMap="MemberResultMap" resultType="MemberDTO9">
+    SELECT MEMBER_ID, MEMBER_NAME, MEMBER_EMAIL, PHONE, ENROLL_DATE, MEMBER_TYPE FROM ALL_MEMBERS WHERE OUT_YN = 'N'
+    </select>
+
+    <select id="findBlack" resultMap="MemberResultMap" resultType="MemberDTO9">
+        SELECT MEMBER_ID, MEMBER_NAME, MEMBER_EMAIL, PHONE, ENROLL_DATE, MEMBER_TYPE FROM ALL_MEMBERS WHERE OUT_YN = 'Y'
+    </select>
+
+    <select id="findById" resultMap="MemberResultMap" resultType="MemberDTO9">
+    SELECT MEMBER_ID, MEMBER_NAME, MEMBER_EMAIL, PHONE, ENROLL_DATE, MEMBER_TYPE FROM ALL_MEMBERS WHERE MEMBER_ID = #{memberId}
+    </select>
+
+    <update id="deleteMember" parameterType="MemberDTO9">
+    UPDATE ALL_MEMBERS SET OUT_YN  = 'Y' WHERE MEMBER_ID = #{memberId}
+    </update>
+
+    <update id="recoveryMember" parameterType="MemberDTO9">
+        UPDATE ALL_MEMBERS SET OUT_YN  = 'N' WHERE MEMBER_ID = #{memberId}
+    </update>
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

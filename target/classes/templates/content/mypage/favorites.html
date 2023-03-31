@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <link th:href="@{/css/terms/terms_common.css}" rel="stylesheet" type="text/css">
+  <link th:href="@{/css/manager/menu_title.css}" rel="stylesheet" type="text/css">
+</head>
+
+<th:block layout:fragment="content">
+  <!— Begin Page Content —>
+
+  <!-- main  -->
+
+  <div class="container">
+    <div class="row">
+      <br/>
+      <div class="col text-left">
+        <h1 text-align="left">찜하기</h1>
+        <p class="text-right">ooo님 어서오세요</p>
+      </div>
+    </div>
+    <hr>
+
+    <!-- 1. 찜하기 아이콘 문자로 표시하는 방법
+    <span class="my-wish-list" data-uid="<!--/product@uid/-->" data-enabled="★" data-unenabled="☆" style="cursor:pointer;font-size:20px">☆</span>
+
+    - ★ : 찜한 상품에 보여질 문자
+    - ☆ : 찜하지 않은 상품에 보여질 문자
+
+
+    2. 찜하기 아이콘 이미지로 표시하는 방법
+    <span class="my-wish-list" data-uid="<!--/product@uid/-->" data-enabled="<img src='찜한 상품 이미지 경로' data-uid='<!--/product@uid/-->'>" data-unenabled="<img src='찜하지 않은 상품 이미지 경로' data-uid='<!--/product@uid/-->'>" style="cursor:pointer;">
+  <img src='찜하지 않은 상품 이미지 경로'>
+</span>
+    <a href="#" class="ms-3 text-muted">
+      <!-- Download SVG icon from http://tabler-icons.io/i/heart -->
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+        <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path>
+      </svg><font style="vertical-align: inherit;"></font></a>
+    하트가 채워지고 비워지고는 토글로 해야하는건가용 낼 더 알아보겠싐다ㅜㅠ
+    -->
+
+
+
+    <div class="container mx-auto mt-44">
+      <div class="row">
+        <div class="col-md-3 mainTable">
+          <div class="card" style="width: 18rem">
+            <img src="../../resources/image/cat.png" class="card-img-top" alt="귀여운고양이" usemap="myMap">
+            <map name="myMap">
+              <area shape="rect" coords="0, 0, 286, 191" href="#" target="_blank">
+            </map>
+            <div class="card-body">
+              <h5 class="card-title">프로젝트 제목</h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                카테고리? 창작자이름?
+              </h6>
+              <p class="card-text">간단한 프로젝트 소개</p>
+              <a href="#" class="btn btn-primary">프로젝트 상세보기</a>
+              <button class="btn position-relative">Red badge <span class="badge bg-red badge-notification badge-pill">6</span></button>
+              <span class="badge bg-red badge-notification badge-pill">6</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 mainTable">
+          <div class="card" style="width: 18rem">
+            <img src="../../resources/image/cat.png" class="card-img-top" alt="귀여운고양이" usemap="myMap">
+            <map name="myMap">
+              <area shape="rect" coords="0, 0, 286, 191" href="#" target="_blank">
+            </map>
+            <div class="card-body">
+              <h5 class="card-title">프로젝트 제목</h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                카테고리? 창작자이름?
+              </h6>
+              <p class="card-text">간단한 프로젝트 소개</p>
+              <a href="#" class="btn btn-primary">프로젝트 상세보기</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 mainTable">
+          <div class="card" style="width: 18rem">
+            <img src="../../resources/image/cat.png" class="card-img-top" alt="귀여운고양이" usemap="myMap">
+            <map name="myMap">
+              <area shape="rect" coords="0, 0, 286, 191" href="#" target="_blank">
+            </map>
+            <div class="card-body">
+              <h5 class="card-title">프로젝트 제목</h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                카테고리? 창작자이름?
+              </h6>
+              <p class="card-text">간단한 프로젝트 소개</p>
+              <a href="#" class="btn btn-primary">프로젝트 상세보기</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 mainTable">
+          <div class="card" style="width: 18rem">
+            <img src="../../resources/image/cat.png" class="card-img-top" alt="귀여운고양이" usemap="myMap">
+            <map name="myMap">
+              <area shape="rect" coords="0, 0, 286, 191" href="#" target="_blank">
+            </map>
+            <div class="card-body">
+              <h5 class="card-title">프로젝트 제목</h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                카테고리? 창작자이름?
+              </h6>
+              <p class="card-text">간단한 프로젝트 소개</p>
+              <a href="#" class="btn btn-primary">프로젝트 상세보기</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 mainTable">
+          <div class="card" style="width: 18rem">
+            <img src="../../resources/image/cat.png" class="card-img-top" alt="귀여운고양이" usemap="myMap">
+            <map name="myMap">
+              <area shape="rect" coords="0, 0, 286, 191" href="#" target="_blank">
+            </map>
+            <div class="card-body">
+              <h5 class="card-title">프로젝트 제목</h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                카테고리? 창작자이름?
+              </h6>
+              <p class="card-text">간단한 프로젝트 소개</p>
+              <a href="#" class="btn btn-primary">프로젝트 상세보기</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 mainTable">
+          <div class="card" style="width: 18rem">
+            <img src="../../resources/image/cat.png" class="card-img-top" alt="귀여운고양이" usemap="myMap">
+            <map name="myMap">
+              <area shape="rect" coords="0, 0, 286, 191" href="#" target="_blank">
+            </map>
+            <div class="card-body">
+              <h5 class="card-title">프로젝트 제목</h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                카테고리? 창작자이름?
+              </h6>
+              <p class="card-text">간단한 프로젝트 소개</p>
+              <a href="#" class="btn btn-primary">프로젝트 상세보기</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 mainTable">
+          <div class="card" style="width: 18rem">
+            <img src="../../resources/image/cat.png" class="card-img-top" alt="귀여운고양이" usemap="myMap">
+            <map name="myMap">
+              <area shape="rect" coords="0, 0, 286, 191" href="#" target="_blank">
+            </map>
+            <div class="card-body">
+              <h5 class="card-title">프로젝트 제목</h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                카테고리? 창작자이름?
+              </h6>
+              <p class="card-text">간단한 프로젝트 소개</p>
+              <a href="#" class="btn btn-primary">프로젝트 상세보기</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 mainTable">
+          <div class="card" style="width: 18rem">
+            <img src="../../resources/image/cat.png" class="card-img-top" alt="귀여운고양이" usemap="myMap">
+            <map name="myMap">
+              <area shape="rect" coords="0, 0, 286, 191" href="#" target="_blank">
+            </map>
+            <div class="card-body">
+              <h5 class="card-title">프로젝트 제목</h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                카테고리? 창작자이름?
+              </h6>
+              <p class="card-text">간단한 프로젝트 소개</p>
+              <a href="#" class="btn btn-primary">프로젝트 상세보기</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 mainTable">
+          <div class="card" style="width: 18rem">
+            <img src="../../resources/image/cat.png" class="card-img-top" alt="귀여운고양이" usemap="myMap">
+            <map name="myMap">
+              <area shape="rect" coords="0, 0, 286, 191" href="#" target="_blank">
+            </map>
+            <div class="card-body">
+              <h5 class="card-title">프로젝트 제목</h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                카테고리? 창작자이름?
+              </h6>
+              <p class="card-text">간단한 프로젝트 소개</p>
+              <a href="#" class="btn btn-primary">프로젝트 상세보기</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 mainTable">
+          <div class="card" style="width: 18rem">
+            <img src="../../resources/image/cat.png" class="card-img-top" alt="귀여운고양이" usemap="myMap">
+            <map name="myMap">
+              <area shape="rect" coords="0, 0, 286, 191" href="#" target="_blank">
+            </map>
+            <div class="card-body">
+              <h5 class="card-title">프로젝트 제목</h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                카테고리? 창작자이름?
+              </h6>
+              <p class="card-text">간단한 프로젝트 소개</p>
+              <a href="#" class="btn btn-primary">프로젝트 상세보기</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 mainTable">
+          <div class="card" style="width: 18rem">
+            <img src="../../resources/image/cat.png" class="card-img-top" alt="귀여운고양이" usemap="myMap">
+            <map name="myMap">
+              <area shape="rect" coords="0, 0, 286, 191" href="#" target="_blank">
+            </map>
+            <div class="card-body">
+              <h5 class="card-title">프로젝트 제목</h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                카테고리? 창작자이름?
+              </h6>
+              <p class="card-text">간단한 프로젝트 소개</p>
+              <a href="#" class="btn btn-primary">프로젝트 상세보기</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 mainTable">
+          <div class="card" style="width: 18rem">
+            <img src="../../resources/image/cat.png" class="card-img-top" alt="귀여운고양이" usemap="myMap">
+            <map name="myMap">
+              <area shape="rect" coords="0, 0, 286, 191" href="#" target="_blank">
+            </map>
+            <div class="card-body">
+              <h5 class="card-title">프로젝트 제목</h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                카테고리? 창작자이름?
+              </h6>
+              <p class="card-text">간단한 프로젝트 소개</p>
+              <a href="#" class="btn btn-primary">프로젝트 상세보기</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 mainTable">
+          <div class="card" style="width: 18rem">
+            <img src="../../resources/image/cat.png" class="card-img-top" alt="귀여운고양이" usemap="myMap">
+            <map name="myMap">
+              <area shape="rect" coords="0, 0, 286, 191" href="#" target="_blank">
+            </map>
+            <div class="card-body">
+              <h5 class="card-title">프로젝트 제목</h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                카테고리? 창작자이름?
+              </h6>
+              <p class="card-text">간단한 프로젝트 소개</p>
+              <a href="#" class="btn btn-primary">프로젝트 상세보기</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 mainTable">
+          <div class="card" style="width: 18rem">
+            <img src="../../resources/image/cat.png" class="card-img-top" alt="귀여운고양이" usemap="myMap">
+            <map name="myMap">
+              <area shape="rect" coords="0, 0, 286, 191" href="#" target="_blank">
+            </map>
+            <div class="card-body">
+              <h5 class="card-title">프로젝트 제목</h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                카테고리? 창작자이름?
+              </h6>
+              <p class="card-text">간단한 프로젝트 소개</p>
+              <a href="#" class="btn btn-primary">프로젝트 상세보기</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 mainTable">
+          <div class="card" style="width: 18rem">
+            <img src="../../resources/image/cat.png" class="card-img-top" alt="귀여운고양이" usemap="myMap">
+            <map name="myMap">
+              <area shape="rect" coords="0, 0, 286, 191" href="#" target="_blank">
+            </map>
+            <div class="card-body">
+              <h5 class="card-title">프로젝트 제목</h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                카테고리? 창작자이름?
+              </h6>
+              <p class="card-text">간단한 프로젝트 소개</p>
+              <a href="#" class="btn btn-primary">프로젝트 상세보기</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 mainTable">
+          <div class="card" style="width: 18rem">
+            <img src="../../resources/image/cat.png" class="card-img-top" alt="귀여운고양이" usemap="myMap">
+            <map name="myMap">
+              <area shape="rect" coords="0, 0, 286, 191" href="#" target="_blank">
+            </map>
+            <div class="card-body">
+              <h5 class="card-title">프로젝트 제목</h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                카테고리? 창작자이름?
+              </h6>
+              <p class="card-text">간단한 프로젝트 소개</p>
+              <a href="#" class="btn btn-primary">프로젝트 상세보기</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+</th:block>
+</html>

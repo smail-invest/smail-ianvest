@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <link th:href="@{/css/manager/board_create.css}" rel="stylesheet" type="text/css">
+</head>
+
+<th:block layout:fragment="content">
+    <!— Begin Page Content —>
+
+
+    <!-- title -->
+    <div class="container">
+        <div class="row">
+            <div class="title">
+                <div class="titleText">게시글 수정</div>
+            </div>
+
+            <!-- table -->
+            <form th:action="@{/board/notice/update}" method="post">
+                <div class="table">
+                    <table class="listArea">
+                        <tbody>
+                        <input name="number" type="hidden" th:value="${ notice.number }">
+                        <tr>
+                            <th class="table_center" style="width: 500px">게시물 제목</th>
+                            <td>
+                                <input name="title" type="text" th:value="${ notice.title }" style="width: 100%">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="table_center">게시물 내용</th>
+                            <td>
+                                <textarea name="content" cols="90" rows="15" th:text="${ notice.content }">
+                                </textarea>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="saveCloseBtn">
+                    <button>수정하기</button>
+                    <button type="button" th:onclick="|location.href='@{/board/notice/list}'|">뒤로가기</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</th:block>
+</html>

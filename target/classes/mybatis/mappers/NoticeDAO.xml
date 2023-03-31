@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 여기는 경로를 알맞게 적어주어야 한다 -->
+<mapper namespace="com.smile.invest.board.notice.dao.NoticeDAO">
+
+    <!-- 여기는 yml파일에서 type-aliases-package: com.smile.invest로 주었기 때문에 DTO이름이 겹치지 않는다면 경로를 따로 적어주지 않아도 찾아갈 수 있다 -->
+    <resultMap type="NoticeDTO" id="noticeListResultMap">
+        <id property="number" column="POST_NUMBER"/>
+        <result property="title" column="POST_TITLE"/>
+        <result property="writeDate" column="POST_WRITE_DATE"/>
+        <result property="viewCount" column="POST_VIEW_COUNT"/>
+        <result property="memberId" column="MEMBER_ID"/>
+        <result property="content" column="POST_CONTENT"/>
+        <result property="code" column="BOARD_CODE"/>
+        <result property="deleteYn" column="POST_DELETE_YN"/>
+    </resultMap>
+
+<!-- 값이 변하지 않고 정적인 데이터를 불러오는 것이기 때문에 #{}안쓰고 바로 'bc01'로 값을 넣어주면 된다 / 매개변수로 값을 받아 요청받는 경우에는 #{}-->
+    <select id="findNoticeList" resultMap="noticeListResultMap">
+        SELECT
+               A.RNUM
+             , A.POST_NUMBER
+             , A.POST_TITLE
+             , A.POST_WRITE_DATE
+          FROM (SELECT ROWNUM RNUM
+                     , B.POST_NUMBER
+                     , B.POST_TITLE
+                     , B.POST_WRITE_DATE
+                  FROM (SELECT
+                               C.POST_NUMBER
+                             , C.POST_TITLE
+                             , C.POST_WRITE_DATE
+                          FROM POST C
+                        <where>
+                        <if test="searchCondition == 'writer'">
+                               C.MEMBER_ID LIKE '%' || #{ searchValue } || '%'
+                        </if>
+                        <if test="searchCondition == 'title'">
+                               C.POST_TITLE LIKE '%' || #{ searchValue } || '%'
+                        </if>
+                           AND C.POST_DELETE_YN = 'N'
+                           AND C.BOARD_CODE = 'bc02'
+                        </where>
+                         ORDER BY C.POST_WRITE_DATE DESC
+                        ) B
+                <![CDATA[
+                WHERE ROWNUM <= #{ endRow }
+                ]]>
+                ) A
+         WHERE A.RNUM >= #{ startRow }
+         ORDER BY 1 ASC
+    </select>
+
+
+    <select id="selectTotalCount" resultType="_int" parameterType="hashmap">
+        SELECT
+               COUNT(*)
+          FROM POST C
+        <where>
+            <if test="searchCondition == 'writer'">
+                C.MEMBER_ID LIKE '%' || #{ searchValue } || '%'
+            </if>
+            <if test="searchCondition == 'title'">
+                C.POST_TITLE LIKE '%' || #{ searchValue } || '%'
+            </if>
+            AND C.POST_DELETE_YN = 'N'
+            AND C.BOARD_CODE = 'bc02'
+        </where>
+    </select>
+
+    <select id="noticeDetail" resultMap="noticeListResultMap" resultType="NoticeDTO">
+        SELECT
+               POST_TITLE
+             , POST_WRITE_DATE
+             , POST_CONTENT
+          FROM POST
+         WHERE POST_NUMBER = #{ number }
+           AND POST_DELETE_YN = 'N'
+    </select>
+
+
+    <insert id="insertNotice" parameterType="NoticeDTO">
+        INSERT
+          INTO POST P
+             (
+               P.POST_NUMBER
+             , P.POST_TITLE
+             , P.MEMBER_ID
+             , P.POST_CONTENT
+             , P.BOARD_CODE
+             )
+        VALUES
+             (
+               'post'|| SEQ_POST_NO.NEXTVAL
+             , #{ title }
+             , #{ memberId }
+             , #{ content }
+             , 'bc02'
+             )
+    </insert>
+
+
+    <update id="deleteNotice" parameterType="NoticeDTO">
+        UPDATE
+               POST
+           SET POST_DELETE_YN  = 'Y'
+         WHERE POST_NUMBER = #{ number }
+    </update>
+
+
+    <select id="selectNoticeDetail" parameterType="NoticeDTO" resultMap="noticeListResultMap">
+        SELECT
+               POST_NUMBER
+             , POST_TITLE
+             , POST_CONTENT
+             , POST_WRITE_DATE
+          FROM POST
+         WHERE POST_NUMBER = #{ number }
+    </select>
+
+    <update id="updateNotice" parameterType="NoticeDTO">
+        UPDATE
+               POST
+           SET POST_TITLE = #{ title }
+             , POST_CONTENT = #{ content }
+         WHERE POST_NUMBER = #{ number }
+    </update>
+
+
+</mapper>

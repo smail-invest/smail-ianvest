@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <link th:href="@{/css/mypage/mypage_main.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/manager/menu_title.css}" rel="stylesheet" type="text/css">
+</head>
+
+<th:block layout:fragment="content">
+    <!— Begin Page Content —>
+
+    <!-- main -->
+    <div>
+        <div class="title">
+            <div class="titleText">유저 페이지</div>
+            <div class="profileText">
+                <span sec:authentication="principal.userId"></span>
+                <span>님 어서오세요.</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row menu_button">
+            <div class="col-6 mainBtn">
+                <button type="button" class="btn1" th:onclick="|location.href='@{/mypage/info}'|">개인정보변경</button>
+            </div>
+            <div class="col-6 mainBtn">
+                <button type="button" class="btn1" th:onclick="|location.href='@{/mypage/mileage}'|">마일리지 충전</button>
+            </div>
+            <div class="col-6 mainBtn">
+                <button type="button" class="btn1" th:onclick="|location.href='@{/mypage/sponsor}'|">후원 현황</button>
+            </div>
+            <div class="col-6 mainBtn">
+                <button type="button" class="btn1" th:onclick="|location.href='@{/mypage/support}'|">기부 현황</button>
+            </div>
+            <div class="col-6 mainBtn">
+                <button type="button" class="btn1" th:onclick="|location.href='@{/mypage/project}'|">나의 프로젝트</button>
+            </div>
+            <div class="col-6 mainBtn">
+                <button type="button" class="btn1" th:onclick="|location.href='@{/mypage/favorites}'|">찜하기</button>
+            </div>
+            <!-- <div class="col-6 mainBtn">
+                <button type="button" class="btn1" onclick="location.href='#'">쪽지함</button>
+            </div> -->
+        </div>
+    </div>
+
+</th:block>
+</html>

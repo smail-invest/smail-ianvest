@@ -1,0 +1,35 @@
+.title {
+    margin: 200px 0px 150px 0px;
+}
+
+/*.show {*/
+/*    margin: 0px 200px 0px 200px;*/
+/*}*/
+
+.main_text {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-bottom: 100px;
+    background-color: rgb(234, 234, 234);
+    border-radius: 10px;
+    color: rgb(132, 132, 132);
+}
+
+.main_text h3 {
+    margin-bottom: 50px;
+    font-weight: bold;
+    color: black;
+}
+
+/*.main_btn {*/
+/*    margin-bottom: 200px;*/
+/*}*/
+
+/*.btn {*/
+/*    width: 250px;*/
+/*}*/
+
+.check_box {
+    display: flex;
+
+}

@@ -1,0 +1,46 @@
+server:
+  port: 8889
+
+
+spring:
+  web:
+    resources:
+      static-locations: classpath:/upload/
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@oracle.coffit.site:1521:xe
+    username: C##SMILE_INVEST
+    password: SMILE_INVEST
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+    check-template-location: true
+  mail:
+    # Google smtp server 사용
+    host: smtp.gmail.com
+    port: 587
+    username: codingtest0429@gmail.com #앱 비밀번호 발급받은 google 계정
+    password: xksflqpskkdxpmkj #발급받은 앱 비밀번호
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+            required: true
+          auth: true
+          ssl:
+            protocols: TLSv1.2
+
+image:
+  image-dir: src/main/resources
+
+mybatis:
+  mapper-locations: mybatis/mappers/*.xml
+  type-aliases-package: com.smile.invest
+  configuration:
+    map-underscore-to-camel-case: true
+    jdbc-type-for-null: null
+logging:
+  level:
+    root: info

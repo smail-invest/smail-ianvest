@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 여기는 경로를 알맞게 적어주어야 한다 -->
+<mapper namespace="com.smile.invest.board.qna.dao.QnaDAO">
+
+    <!-- 여기는 yml파일에서 type-aliases-package: com.smile.invest로 주었기 때문에 DTO이름이 겹치지 않는다면 경로를 따로 적어주지 않아도 찾아갈 수 있다 -->
+    <resultMap id="qnaListResultMap" type="QnaDTO">
+        <result property="number" column="POST_NUMBER"/>
+        <result property="title" column="POST_TITLE"/>
+        <result property="writeDate" column="POST_WRITE_DATE"/>
+        <result property="viewCount" column="POST_VIEW_COUNT"/>
+        <result property="memberId" column="MEMBER_ID"/>
+        <result property="content" column="POST_CONTENT"/>
+        <result property="boardCode" column="BOARD_CODE"/>
+        <result property="postDeleteYn" column="POST_DELETE_YN"/>
+    </resultMap>
+
+    <resultMap id="qnaReplyResultMap" type="ReplyDTO">
+        <result property="number" column="POST_NUMBER"/>
+        <result property="memberId" column="MEMBER_ID"/>
+        <result property="replyContent" column="COMMENT_CONTENT"/>
+        <result property="replyDeleteYn" column="COMMENT_DELETE_YN"/>
+        <result property="replyNum" column="COMMENT_NUM"/>
+
+        <association property="writeDate" resultMap="qnaListResultMap"/>
+    </resultMap>
+
+
+    <!-- 값이 변하지 않고 정적인 데이터를 불러오는 것이기 때문에 #{}안쓰고 바로 'bc01'로 값을 넣어주면 된다 / 매개변수로 값을 받아 요청받는 경우에는 #{}-->
+    <select id="findQnaList" resultMap="qnaListResultMap">
+        SELECT
+        A.RNUM
+        , A.POST_NUMBER
+        , A.POST_TITLE
+        , A.MEMBER_ID
+        , A.POST_WRITE_DATE
+        , A.SECRET_YN
+        FROM (SELECT ROWNUM RNUM
+        , B.POST_NUMBER
+        , B.POST_TITLE
+        , B.MEMBER_ID
+        , B.POST_WRITE_DATE
+        , B.SECRET_YN
+        FROM (SELECT
+        C.POST_NUMBER
+        , C.POST_TITLE
+        , C.POST_WRITE_DATE
+        , C.MEMBER_ID
+        , C.SECRET_YN
+        FROM POST C
+        <where>
+            <if test="searchCondition == 'writer'">
+                C.MEMBER_ID LIKE '%' || #{ searchValue } || '%'
+            </if>
+            <if test="searchCondition == 'title'">
+                C.POST_TITLE LIKE '%' || #{ searchValue } || '%'
+            </if>
+            AND C.POST_DELETE_YN = 'N'
+            AND C.BOARD_CODE = 'bc05'
+        </where>
+        ORDER BY C.POST_WRITE_DATE DESC
+        ) B
+        <![CDATA[
+                WHERE ROWNUM <= #{ endRow }
+                ]]>
+        ) A
+        WHERE A.RNUM >= #{ startRow }
+        ORDER BY 1 ASC
+    </select>
+
+
+    <select id="selectTotalCount" resultType="_int" parameterType="hashmap">
+        SELECT
+               COUNT(*)
+          FROM POST C
+        <where>
+            <if test="searchCondition == 'writer'">
+                C.MEMBER_ID LIKE '%' || #{ searchValue } || '%'
+            </if>
+            <if test="searchCondition == 'title'">
+                C.POST_TITLE LIKE '%' || #{ searchValue } || '%'
+            </if>
+            AND C.POST_DELETE_YN = 'N'
+            AND C.BOARD_CODE = 'bc05'
+        </where>
+    </select>
+
+
+    <select id="qnaDetail" resultMap="qnaListResultMap" resultType="QnaDTO">
+        SELECT
+               POST_TITLE
+             , POST_WRITE_DATE
+             , POST_CONTENT
+             , MEMBER_ID
+             , SECRET_YN
+             , POST_NUMBER
+          FROM POST
+         WHERE POST_NUMBER = #{ number }
+           AND POST_DELETE_YN = 'N'
+    </select>
+
+
+
+
+<!--    <select id="selectReplyList" resultMap="qnaReplyResultMap">-->
+<!--        SELECT-->
+<!--               A.POST_NUMBER-->
+<!--             , A.COMMENT_NUM-->
+<!--             , A.MEMBER_ID-->
+<!--             , A.COMMENT_CONTENT-->
+<!--             , A.COMMENT_DELETE_YN-->
+<!--             , B.POST_WRITE_DATE-->
+<!--          FROM BOARD_COMMENT A-->
+<!--          JOIN POST B ON (A.POST_NUMBER = B.POST_NUMBER)-->
+<!--         WHERE A.COMMENT_DELETE_YN = 'N'-->
+<!--           AND A.POST_NUMBER = #{ number }-->
+<!--         ORDER BY A.POST_NUMBER-->
+<!--    </select>-->
+
+<!--    <insert id="insertReply">-->
+<!--        INSERT-->
+<!--          INTO BOARD_COMMENT A-->
+<!--             (-->
+<!--               A.COMMENT_NUM-->
+<!--             , A.MEMBER_ID-->
+<!--             , A.COMMENT_CONTENT-->
+<!--             , A.COMMENT_DELETE_YN-->
+<!--             )-->
+<!--        VALUES-->
+<!--            (-->
+<!--               SEQ_REPLY_NO.NEXTVAL-->
+<!--             , #{ memberId }-->
+<!--             , #{ replyContent }-->
+<!--             , 'N'-->
+<!--            )-->
+<!--    </insert>-->
+
+<!--    <delete id="deleteReply" parameterType="long">-->
+<!--        DELETE-->
+<!--          FROM BOARD_COMMENT-->
+<!--         WHERE COMMENT_NUM = #{ replyNum }-->
+<!--    </delete>-->
+
+
+
+    <insert id="insertQna" parameterType="QnaDTO">
+        INSERT
+        INTO POST P
+            (
+               P.POST_NUMBER
+             , P.POST_TITLE
+             , P.MEMBER_ID
+             , P.POST_CONTENT
+             , P.BOARD_CODE
+             , P.SECRET_YN
+             )
+        VALUES
+            (
+              'post'|| SEQ_POST_NO.NEXTVAL
+              , #{ title }
+              , #{ memberId }
+              , #{ content }
+              , 'bc05'
+              , #{ secretYn }
+            )
+    </insert>
+
+
+    <update id="deleteQna" parameterType="QnaDTO">
+        UPDATE
+               POST
+           SET POST_DELETE_YN  = 'Y'
+         WHERE POST_NUMBER = #{ number }
+    </update>
+
+
+    <select id="seleteQnaDetail" parameterType="QnaDTO" resultMap="qnaListResultMap">
+        SELECT
+               POST_NUMBER
+             , POST_TITLE
+             , POST_CONTENT
+             , POST_WRITE_DATE
+        FROM POST
+        WHERE POST_NUMBER = #{ number }
+    </select>
+
+    <update id="updateQna" parameterType="QnaDTO">
+        UPDATE
+               POST
+           SET POST_TITLE = #{ title }
+             , POST_CONTENT = #{ content }
+         WHERE POST_NUMBER = #{ number }
+    </update>
+
+</mapper>

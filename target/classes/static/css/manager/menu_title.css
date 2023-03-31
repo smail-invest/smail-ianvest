@@ -1,0 +1,20 @@
+/* title */
+.title {
+    margin: 170px 250px 10px 250px;
+    border-bottom: solid 2px black;
+}
+
+.titleText {
+    text-align: left;
+    font-size: 35px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 30px;
+    color: #686868;
+}
+
+.profileText {
+    margin: 0px 50px 10px 0px;
+    text-align: right;
+    letter-spacing: 2px;
+}

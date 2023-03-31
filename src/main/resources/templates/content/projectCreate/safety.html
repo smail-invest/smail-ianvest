@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <link th:href="@{/css/projectcreate/basicinfo.css}" rel="stylesheet" type="text/css">
+</head>
+
+<th:block layout:fragment="content">
+    <!— Begin Page Content —>
+
+    <!-- title -->
+    <div class="title">
+        <div class="titleText">프로젝트 등록</div>
+    </div>
+
+    <!-- main -->
+    <div>
+        <!-- nav -->
+        <div class="nav_box">
+            <ul class="nav nav_margin">
+                <li class="nav-item">
+                    <a>심사 기준 안내</a>
+                </li>
+                <li class="nav-item">
+                    <a>기본 정보</a>
+                </li>
+                <li class="nav-item">
+                    <a>패키지 구성</a>
+                </li>
+                <li class="nav-item">
+                    <a>프로젝트 계획</a>
+                </li>
+                <li class="nav-item check">
+                    <a>신뢰와 안전</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- input -->
+        <form th:action="@{/project/create/projectSuccess}" method="post">
+            <div class="main_input">
+                <input name="userId" type="hidden" th:value="${ project.userId }">
+                <input name="categoryCode" type="hidden" th:value="${ project.categoryCode }">
+                <input name="projectTitle" type="hidden" th:value="${ project.projectTitle }">
+                <input name="shortInfo" type="hidden" th:value="${ project.shortInfo }">
+                <input name="targetMileage" type="hidden" th:value="${ project.targetMileage }">
+                <input name="businessNum" type="hidden" th:value="${ project.businessNum }">
+                <input name="startDate" type="hidden" th:value="${ #dates.format(project.startDate, 'yyyy-MM-dd') }">
+                <input name="optionName" type="hidden" th:value="${ project.itemOption.optionName }">
+                <input name="price" type="hidden" th:value="${ project.itemOption.price }">
+                <input name="optionComponents" type="hidden" th:value="${ project.itemOption.optionComponents }">
+                <input name="longInfo" type="hidden" th:value="${ project.longInfo }">
+                <input name="expectedUse" type="hidden" th:value="${ project.expectedUse }">
+                <input name="projectSchedule" type="hidden" th:value="${ project.projectSchedule }">
+                <input name="writerInfo" type="hidden" th:value="${ project.writerInfo }">
+
+                <div>
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    프로젝트 정책
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <p>펀딩 종료 후 후원자의 불만 또는 분쟁 발생 시 중요한 기준이 될 수 있습니다.</p>
+                                    <p>신중히 작성해주세요.</p>
+                                    <p>(예시) 아래와 같은 사항을 고려해서 작성해주세요. 진행하는 프로젝트에 해당되지 않는 항목은 삭제해주세요.</p>
+                                    <p>· 펀딩 마감 이후에는 후원금액이 창작자에게 전달되기에 텀블벅을 통해 환불이 불가합니다. 환불은 창작자가 환불계좌를 받아 반환하는 방식으로만
+                                        가능하며, 어떤 경우에 환불이 가능한지를 기재해주세요.</p>
+                                    <p>· 펀딩 성사 후 지연 또는 선물 전달에 문제가 발생했을 때에 어떤 식으로 대응하시겠어요? 이 프로젝트 특성상 발생할 수 있는 문제에 대한
+                                        추가적인 정책이나 약속이 있다면 기재해주세요. (후원금 환불, 대체 보상 등)</p>
+                                    <p>· 배송이 필요한 선물에 문제가 발생한 경우 교환, A/S는 어떻게 진행되나요?</p>
+                                    <p>· 디지털 콘텐츠 리워드는 타인에게 양도가 가능한가요?</p>
+                                    <p>· 오프라인으로 전달되는 선물(공연, 전시 등)은 타인에게 양도가 가능한가요?</p>
+
+                                    <textarea name="additionalPolicy" rows="10" cols="80">
+                                        여기에 작성해주세요.
+                                    </textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne1">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseOne1" aria-expanded="true"
+                                        aria-controls="collapseOne1">
+                                    예상되는 어려움
+                                </button>
+                            </h2>
+                            <div id="collapseOne1" class="accordion-collapse collapse show"
+                                 aria-labelledby="headingOne1"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <p>· 제작 과정에서 발생할 수 있는 변동사항이 있다면 무엇인가요? (예산, 선물 내용 등)</p>
+                                    <p>· 선물 전달 일정이 지연될 가능성이 있나요?</p>
+                                    <p>· 펀딩 자금이 고갈돼 선물을 전달하지 못한다면 어떤 조치를 취할 수 있을까요?</p>
+                                    <p>· 이외에 발생가능한 문제는 무엇이 있으며 어떻게 대응할 예정인가요?"</p>
+
+                                    <textarea name="expectedDifficulty" rows="10" cols="80">
+                                        여기에 작성해주세요.
+                                    </textarea>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <table>
+                            <tbody>
+                            <tr>
+                                <td class="col-md-6">
+                                    <h4>상품 정보 고시</h4>
+                                    <p>선물에 대한 더 자세한 정보를 참고할 수 있도록 상품 정보 고시를 작성해주세요.</p>
+                                </td>
+                                <td class="col-md-6">
+                                    <label for="inputCountry">제조국</label>
+                                    <input type="text" class="form-control" id="inputCountry"
+                                           name="countryManufacture"
+                                           placeholder="제조국을(를)입력해주세요">
+                                    <br><br>
+                                    <label for="inputOrigin">원산지</label>
+                                    <input type="text" class="form-control" id="inputOrigin" name="countryOrigin"
+                                           placeholder="원산지을(를)입력해주세요">
+                                    <br><br>
+                                    <label for="inputSize">크기</label>
+                                    <input type="text" class="form-control" id="inputSize" name="optionSize"
+                                           placeholder="크기을(를)입력해주세요">
+                                    <br><br>
+                                    <label for="inputMaterial">원료표기</label>
+                                    <input type="text" class="form-control" id="inputMaterial" name="materials"
+                                           placeholder="원료표기을(를)입력해주세요">
+                                    <br><br>
+                                    <label for="inputQuality">품질보증기준</label>
+                                    <input type="text" class="form-control" id="inputQuality"
+                                           name="qualityGuaranteeStandard" placeholder="품질보증기준을(를)입력해주세요">
+                                    <br><br>
+                                    <label for="inputService">고객센터</label>
+                                    <input type="text" class="form-control" id="inputService" name="customerService"
+                                           placeholder="고객센터 전화번호을(를)입력해주세요">
+                                </td>
+                            </tr>
+<!--                            <tr>-->
+<!--                                <td class="col-md-6">-->
+<!--                                    <h4>인증 서류 제출</h4>-->
+<!--                                </td>-->
+<!--                                <td class="col-md-6">-->
+<!--                                    <p style="font-size: 13px">파일 업로드</p>-->
+<!--                                    <input type="file" class=""/>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="next_btn" style="margin: 100px 0px 0px 0px">
+                    <button th:onclick="|location.href='@{/terms/judging_criteria}'|" type="button" class="btn btn-outline-secondary" data-toggle="collapse" data-target="#demo3">심사 기준</button>
+                    <a button th:onclick="|location.href='@{/terms/fee_policy}'|" href="#" class="btn btn-outline-warning w-200">수수료 안내</a>
+                    <a button th:onclick="|location.href='@{projectPlan}'|" href="#" class="btn btn-outline-warning w-200 move_btn">이전 페이지</a>
+                    <input type="submit" value="다음페이지" class="btn btn-outline-warning w-200 move_btn" style="width: 100px">
+            </div>
+        </form>
+    </div>
+    </div>
+</th:block>
+</html>
